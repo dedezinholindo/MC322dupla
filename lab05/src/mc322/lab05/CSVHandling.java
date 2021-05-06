@@ -66,7 +66,7 @@ public class CSVHandling {
 
     private void writeCSV(){
         try {
-            PrintWriter fileExport = new PrintWriter(new FileWriter(dataExport, true));
+            PrintWriter fileExport = new PrintWriter(new FileWriter(dataExport));
             if (state != null)
                 for (int s = 0; s < state.length; s++)
                     fileExport.println(state[s]);

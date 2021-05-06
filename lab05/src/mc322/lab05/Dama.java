@@ -4,8 +4,8 @@ public class Dama extends Peca {
 
     /**
      * tipo: tipo da dama.
-     * linha: linha do peão.
-     * coluna: coluna do peão.
+     * linha: linha da dama.
+     * coluna: coluna da dama.
      * Inicializa uma dama.
      */
     Dama(char tipo, int linha, int coluna) {
@@ -30,14 +30,14 @@ public class Dama extends Peca {
     /**
      * trajeto: vetor com as peças do trajeto, em que a primeira é a peça
      * imediatamente após a source e a última é a peça no target.
-     * Retorna a posição da peça capturada caso haja captura, um vetor com
-     * apenas -1 caso não haja captura e null caso seja um movimento inválido.
+     * Retorna a posição da peça capturada caso haja captura, um vetor vazio
+     * caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca[] trajeto) {
-        if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
+        if (trajeto.length == 0) { //movimento para o source.
             return null;
         }
-        if (trajeto.length == 0) { //movimento para o source.
+        if (trajeto[trajeto.length - 1] == null) { //target fora do tabuleiro.
             return null;
         }
         if (this.linha == trajeto[trajeto.length - 1].getLinha() || this.coluna == trajeto[trajeto.length - 1].getColuna()) { //movimento horizontal ou vertical.
@@ -50,20 +50,17 @@ public class Dama extends Peca {
         if (n > 1) { //pulando mais de uma peça.
             return null;
         }
-        int pecaCapturada[];
         if (n == 0) { //movimento simples.
-            pecaCapturada = new int[] {-1};
-            return pecaCapturada;
+            int posPecaCapturada[] = {};
+            return posPecaCapturada;
         }
-        if (!Posicao.avaliarMesmoTipo(trajeto[trajeto.length - 2], this)){ //movimento com captura(sem comer a mesma peca)
-            for (int contador = 0; contador < trajeto.length - 1; contador++) {
-                if (trajeto[contador].getTipo() != '-') {
-                    break;
-                }
-            }
-            pecaCapturada = new int[] {trajeto[contador].getLinha(), trajeto[contador].getColuna()};
-            return pecaCapturada;
+        if (trajeto[trajeto.length - 2].getTipo() == '-') { //peça capturada antes da posição imediatamente antes do target.
+            return null;
         }
-        return null;
+        if (Character.toLowerCase(this.tipo) != Character.toLowerCase(trajeto[trajeto.length - 2].getTipo())) { //movimento com captura.
+            int posPecaCapturada[] = {trajeto[trajeto.length - 2].getLinha(), trajeto[trajeto.length - 2].getColuna()};
+            return posPecaCapturada;
+        }
+        return null; //captura de peça da mesma cor.
     }
 }

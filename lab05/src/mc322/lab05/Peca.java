@@ -50,8 +50,8 @@ public class Peca {
     /**
      * trajeto: vetor com as peças do trajeto, em que a primeira é a peça
      * imediatamente após a source e a última é a peça no target.
-     * Retorna a posição da peça capturada caso haja captura, um vetor com
-     * apenas -1 caso não haja captura e null caso seja um movimento inválido.
+     * Retorna a posição da peça capturada caso haja captura, um vetor vazio
+     * caso não haja captura e null caso seja um movimento inválido.
      */
     public int[] movimentoValido(Peca trajeto[]){
         return null; //source vazia.

@@ -46,8 +46,4 @@ public class Posicao {
             return true;
         }
     }
-
-    public boolean avaliarMesmoTipo(Peca a, Peca b){
-        return a.getTipo() == b.getTipo() ? true : false;
-    }
 }
