@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e87ca1b5-655a-4b32-9dba-3047ebb6b6a0" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1rXsHeZq14EjDOnwKWV2AWxzdHl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/data" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="AppDama" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="/usr/lib/jvm/java-1.11.0-openjdk-amd64" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="mc322.lab05.AppDama" />
+      <module name="lab05" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/data/'arq001 - arq001.csv' $PROJECT_DIR$/data/'arq001 - arq001_out.csv'" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e87ca1b5-655a-4b32-9dba-3047ebb6b6a0" name="Default Changelist" comment="" />
+      <created>1619133683054</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1619133683054</updated>
+      <workItem from="1619133684556" duration="2031000" />
+      <workItem from="1619176577002" duration="3853000" />
+      <workItem from="1619188779840" duration="634000" />
+      <workItem from="1619546811421" duration="622000" />
+      <workItem from="1619552547191" duration="984000" />
+      <workItem from="1619728790217" duration="806000" />
+      <workItem from="1619798819546" duration="445000" />
+      <workItem from="1619827735314" duration="3000" />
+      <workItem from="1619874676927" duration="109000" />
+      <workItem from="1619875894767" duration="8000" />
+      <workItem from="1619990808649" duration="1543000" />
+      <workItem from="1620079140253" duration="9332000" />
+      <workItem from="1620133581890" duration="176000" />
+      <workItem from="1620144824938" duration="175000" />
+      <workItem from="1620145013640" duration="229000" />
+      <workItem from="1620149655276" duration="40000" />
+      <workItem from="1620149709220" duration="881000" />
+      <workItem from="1620151481285" duration="242000" />
+      <workItem from="1620151832806" duration="9000" />
+      <workItem from="1620162604882" duration="1155000" />
+      <workItem from="1620174722864" duration="78000" />
+      <workItem from="1620253129179" duration="521000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>
