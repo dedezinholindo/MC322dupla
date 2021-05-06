@@ -1,3 +1,5 @@
-# MC322dupla
-
-Repositorio meu (André Ricardo) em conjunto com Pedro Gadêlha para praticar Programação Orietada a Objetos em java.
+# Alunos
+- André Ricardo Pereira Silva.
+- Pedro Henrique Pinheiro Gadêlha.
+# Curso
+- Engenharia de Computação (34).
