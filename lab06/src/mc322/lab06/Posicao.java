@@ -38,7 +38,7 @@ public class Posicao {
     }
 
     //retornara quem tem preferencia de impressao em determinadda sala
-    public static char preferenciaDeImpressao(Sala s){
+    public static Componente preferenciaDeImpressao(Sala s){
     }
 
 }
