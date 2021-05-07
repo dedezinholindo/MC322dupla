@@ -36,4 +36,9 @@ public class Posicao {
     public static boolean valida(int[] coordenadas) {
         return ((coordenadas[0] >= 0 && coordenadas[0] < 4) && (coordenadas[1] >= 0 && coordenadas[1] < 4));
     }
+
+    //retornara quem tem preferencia de impressao em determinadda sala
+    public static char preferenciaDeImpressao(Sala s){
+    }
+
 }
