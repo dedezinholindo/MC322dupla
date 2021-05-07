@@ -2,15 +2,12 @@ package mc322.lab06;
 
 public class Sala {
     private int numComponentes; //numeros de componentes existentes na sala
-    private int [] coordenadas;
     private Componente [] componentes;
 
+
+    //fazer verificacao de dois objetos proibidos na mesma sala aqui (ele diz que a sala que deve avisar a caverna)
     public int getNumComponentes() {
         return numComponentes;
-    }
-
-    public int[] getCoordenadas() {
-        return coordenadas;
     }
 
     public Componente[] getComponentes() {
@@ -19,10 +16,6 @@ public class Sala {
 
     public void setNumComponentes(int numComponentes) {
         this.numComponentes = numComponentes;
-    }
-
-    public void setCoordenadas(int[] coordenadas) {
-        this.coordenadas = coordenadas;
     }
 
     public void setComponentes(Componente[] componentes) {
