@@ -4,7 +4,7 @@ public class Componente {
     protected char tipo; /* '-' para vazio ou # para vazio e ja percorrido, 'P' para herói, 'W' para Wumpus,
                     'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
     private int[] coordenadas; /* tamanho 2. */
-    static Caverna caverna; //ele diz que o componente tem referencia oara a caverna mas nao o contrario
+    public static Caverna caverna; //ele diz que o componente tem referencia oara a caverna mas nao o contrario
     //util para exibir todo o caminho explorado pelo heroi (vai completando a medida que avanca)
 
     /**
@@ -28,5 +28,21 @@ public class Componente {
 
         this((componente[1].charAt(0) == '_') ? '-' : componente[1].charAt(0),
                Posicao.coordenadasParaInt(componente[0]));
+    }
+
+    public char getTipo() {
+        return tipo;
+    }
+
+    public int[] getCoordenadas() {
+        return coordenadas;
+    }
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setCoordenadas(int[] coordenadas) {
+        this.coordenadas = coordenadas;
     }
 }

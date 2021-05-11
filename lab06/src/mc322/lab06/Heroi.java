@@ -8,7 +8,9 @@ public class Heroi extends Componente {
     private boolean flechaEquipada; //se equipar na proxima sala ele perde uma flecha automaticamente
     private int ourosColetados;
     private int vidas; //qtd de vidas que ele possui (perde se cair no buraco ou Wumpus matar)
+
     //heroi avisa a caverna quais movimentos foram feitos
+
     public String getNome() {
         return nome;
     }
@@ -59,4 +61,15 @@ public class Heroi extends Componente {
 
     public int[] movimentar(int[] destino);//retorna as cordenadas finais para serem trocadas na caverna
     //controle fara isso
+
+    public void apresentarHeroi(){
+        System.out.println("|| Player: " + this.getNome());
+        System.out.println("|| Score: " + this.getScore());
+        System.out.println("|| Lifes: " + this.getVidas());
+        System.out.println("|| Arrows: " + this.getFlechasDisponiveis());
+        if (this.getFlechasDisponiveis() != 0){
+            System.out.println("||   Equiped: " + (this.isFlechaEquipada()? "yes" : "no"));
+        }
+        System.out.println("|| Colected Golds: " + this.getOurosColetados());
+    }
 }
