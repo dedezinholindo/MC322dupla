@@ -1,6 +1,6 @@
 package mc322.lab06;
 
-public class Componente {
+public abstract class Componente {
     protected char tipo; /* '-' para vazio ou # para vazio e ja percorrido, 'P' para herói, 'W' para Wumpus,
                     'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
     private int[] coordenadas; /* tamanho 2. */

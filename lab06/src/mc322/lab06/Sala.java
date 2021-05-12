@@ -7,7 +7,9 @@ public class Sala {
 
 
     //fazer verificacao de dois objetos proibidos na mesma sala aqui (ele diz que a sala que deve avisar a caverna)
+    Sala(){
 
+    }
 
     public boolean isVisitada() {
         return visitada;
