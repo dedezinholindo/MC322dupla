@@ -13,6 +13,10 @@ public class ControleMundoWumpus {
         return pontuacao;
     }
 
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
+    }
+
     /**
      * incremento: incremento para a pontuação, pode ser positivo ou negativo.
      * Incrementa a pontuação do jogo.
