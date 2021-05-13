@@ -3,12 +3,15 @@ package mc322.lab06;
 public class Sala {
     private boolean visitada; //booleano pra se a sala foi visitada
     private int numComponentes; //numeros de componentes existentes na sala
-    private Componente [] componentes;
+    private Componente componentes[];
+    private boolean contemComponentePrimario; /* indica se a sala contém componente primário. */
 
 
     //fazer verificacao de dois objetos proibidos na mesma sala aqui (ele diz que a sala que deve avisar a caverna)
-    Sala(){
-
+    Sala() {
+        this.visitada = false;
+        this.numComponentes = 0;
+        this.componentes = new Componente[4];
     }
 
     public boolean isVisitada() {
@@ -33,5 +36,23 @@ public class Sala {
 
     public void setComponentes(Componente[] componentes) {
         this.componentes = componentes;
+    }
+
+    /**
+     * componente: componente a adicionar à sala.
+     * Retorna true, caso consiga adicionar o componente à sala, e false, caso
+     * contrário.
+     */
+    public boolean adicionarComponente(Componente componente) {
+        if (this.numComponentes == 4 ||
+                (this.contemComponentePrimario && componente.isPrimario())) {
+            return false;
+        }
+        this.componentes[this.numComponentes] = componente;
+        this.numComponentes++;
+        if (componente.isPrimario()) {
+            this.contemComponentePrimario = true;
+        }
+        return true;
     }
 }

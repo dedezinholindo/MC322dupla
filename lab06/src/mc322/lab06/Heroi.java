@@ -9,6 +9,25 @@ public class Heroi extends Componente {
     private int ourosColetados;
     private int vidas; //qtd de vidas que ele possui (perde se cair no buraco ou Wumpus matar)
 
+    /**
+     * coordenadas: coordenadas do heroi.
+     * Inicializa um heroi.
+     */
+    Heroi(int[] coordenadas) {
+        this.tipo = 'P';
+        this.coordenadas = coordenadas;
+        this.caverna = null;
+    }
+
+    /**
+     * heroi: heroi na forma ["i:j", "t"], em que i é a linha, j, a
+     * coluna e t o tipo do heroi, 'P'.
+     * Inicializa um heroi.
+     */
+    Heroi(String[] heroi) {
+        this(Posicao.coordenadasParaInt(heroi[0]));
+    }
+
     //heroi avisa a caverna quais movimentos foram feitos
 
     public String getNome() {

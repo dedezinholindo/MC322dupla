@@ -4,7 +4,7 @@ public class Caverna {
     private qtdOuros, qtdWumpus; //se heroi ourosColetados = qtdOuros ele pode sair
     private Sala[][] salas;
 
-    Caverna(){
+    Caverna() {
         this.salas = new Sala[4][4];
         //criar salas aqui (ele diz que esse objeto eh responsavel por associar cada componente em sua sala)
     }
@@ -18,10 +18,10 @@ public class Caverna {
     }
 
     public void apresentarCaverna(){
-        for(int i = 1; i <= 4; i++){
-            System.out.print(i + " ");
-            for (int j = 1; j <= 4; j++){
-                Componente c = Posicao.preferenciaDeImpressao(salas[i - 1][j - 1]);
+        for(int i = 0; i < 4; i++) {
+            System.out.print((i + 1) + " ");
+            for (int j = 0; j < 4; j++) {
+                Componente c = Posicao.preferenciaDeImpressao(salas[i][j]);
                 System.out.print(c.getTipo() + " ");
             }
             System.out.println();
