@@ -22,6 +22,6 @@ public class ControleMundoWumpus {
      * Incrementa a pontuação do jogo.
      */
     public void incrementarPontuacao(int incremento) {
-        this.pontuacao += incremento;
+        this.setPontuacao(this.getPontuacao() + incremento);
     }
 }
