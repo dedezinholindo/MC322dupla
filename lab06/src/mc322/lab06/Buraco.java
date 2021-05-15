@@ -7,9 +7,7 @@ public class Buraco extends Componente {
      * Inicializa um buraco.
      */
     Buraco(int[] coordenadas) {
-        this.tipo = 'B';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('B', coordenadas);
     }
 
     /**

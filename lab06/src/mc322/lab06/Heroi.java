@@ -13,9 +13,7 @@ public class Heroi extends Componente {
      * Inicializa um heroi.
      */
     Heroi(int[] coordenadas) {
-        this.tipo = 'P';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('P', coordenadas);
     }
 
     /**

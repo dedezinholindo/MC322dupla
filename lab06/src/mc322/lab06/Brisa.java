@@ -7,9 +7,7 @@ public class Brisa extends Componente {
      * Inicializa uma brisa.
      */
     Brisa(int[] coordenadas) {
-        this.tipo = 'b';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('b', coordenadas);
     }
 
     /**

@@ -7,9 +7,7 @@ public class Ouro extends Componente {
      * Inicializa um ouro.
      */
     Ouro(int[] coordenadas) {
-        this.tipo = 'O';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('O', coordenadas);
     }
 
     /**

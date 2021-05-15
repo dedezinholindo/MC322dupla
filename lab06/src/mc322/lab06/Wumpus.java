@@ -7,9 +7,7 @@ public class Wumpus extends Componente {
      * Inicializa um wumpus.
      */
     Wumpus(int[] coordenadas) {
-        this.tipo = 'W';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('W', coordenadas);
     }
 
     /**

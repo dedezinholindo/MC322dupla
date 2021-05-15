@@ -3,7 +3,7 @@ package mc322.lab06;
 public class Sala {
     private boolean visitada; //booleano pra se a sala foi visitada
     private int numComponentes; //numeros de componentes existentes na sala
-    private Componente componentes[];
+    private ArrayList<Componente> componentes;
     private boolean contemComponentePrimario; /* indica se a sala contém componente primário. */
 
 
@@ -22,7 +22,7 @@ public class Sala {
         return numComponentes;
     }
 
-    public Componente[] getComponentes() {
+    public ArrayList<Componente> getComponentes() {
         return componentes;
     }
 
@@ -34,7 +34,7 @@ public class Sala {
         this.numComponentes = numComponentes;
     }
 
-    public void setComponentes(Componente[] componentes) {
+    public void setComponentes(ArrayList<Componente> componentes) {
         this.componentes = componentes;
     }
 
@@ -48,7 +48,7 @@ public class Sala {
                 (this.contemComponentePrimario && componente.isPrimario())) {
             return false;
         }
-        this.componentes[this.numComponentes] = componente;
+        this.componentes.add(componente);
         this.numComponentes++;
         if (componente.isPrimario()) {
             this.contemComponentePrimario = true;

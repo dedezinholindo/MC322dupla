@@ -7,9 +7,7 @@ public class Fedor extends Componente {
      * Inicializa um fedor.
      */
     Fedor(int[] coordenadas) {
-        this.tipo = 'f';
-        this.coordenadas = coordenadas;
-        this.caverna = null;
+        super('f', coordenadas);
     }
 
     /**

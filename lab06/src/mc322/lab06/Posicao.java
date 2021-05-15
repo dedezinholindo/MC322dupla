@@ -38,25 +38,25 @@ public class Posicao {
     }
 
     //retornara quem tem preferencia de impressao em determinadda sala
-    public static Componente preferenciaDeImpressao(Sala s){
-        Componete retorno = null;
+    public static char preferenciaDeImpressao(Sala s){
+        char retorno = null;
         for (int i = 0; i < (s.getComponentes()).length; i++){
-            Componente c = (s.getComponentes())[i];
-            if (c.getTipo() == 'O' | c.getTipo() == 'W' | c.getTipo() == 'B' ){
+            char c = ((s.getComponentes())[i]).getTipo();
+            if (c == 'O' | c == 'W' | c == 'B' ){
                 return c;
             }
-            if (c.getTipo() == 'P'){
+            if (c == 'P'){
                 retorno = c;
-            } else if (c.getTipo == 'f' && (retorno.getTipo() != 'P')){
+            } else if (c == 'f' && (retorno == null)){
                 retorno = c;
-            } else if (retorno == null && (c.getTipo() == 'b')){
+            } else if (retorno == null && (c == 'b')){
                 retorno = c;
-            } else if ()
+            }
         }
         if (s.getComponentes()).length == 0 && (s.isVisitada()){
-            //retorna a componente com asterisco
-        } else {
-            //retorna '-'
+            return '#';
+        } else if (s.getComponentes()).length == 0 && !(s.isVisitada()){
+            return '-';
         }
         return retorno;
     }
