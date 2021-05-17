@@ -3,9 +3,8 @@ package mc322.lab06;
 public abstract class Componente {
     protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,
                             'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
-    private int coordenadas[]; /* tamanho 2. */
-    public Caverna caverna; /* ele diz que o componente tem referencia para a caverna mas nao o contrario
-                                    util para exibir todo o caminho explorado pelo heroi (vai completando a medida que avanca). */
+    protected int coordenadas[];
+    protected Caverna caverna;
 
     /**
      * tipo: tipo do componente.
@@ -45,7 +44,7 @@ public abstract class Componente {
     }
 
     public void setCaverna(Caverna caverna) {
-
+        
     }
 
     /**

@@ -18,7 +18,7 @@ public class Caverna {
     }
 
     public void apresentarCaverna(){
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             System.out.print((i + 1) + " ");
             for (int j = 0; j < 4; j++) {
                 char c = Posicao.preferenciaDeImpressao(salas[i][j]);
