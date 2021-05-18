@@ -3,8 +3,7 @@ package mc322.lab06;
 public abstract class Componente {
     protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,
                             'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
-    protected int coordenadas[];
-    protected Caverna caverna;
+    protected int coordenadas[]; //indice 0 eh a linha e 1 a coluna
 
     /**
      * tipo: tipo do componente.
@@ -14,7 +13,6 @@ public abstract class Componente {
     Componente(char tipo, int[] coordenadas) {
         this.tipo = tipo;
         this.coordenadas = coordenadas;
-        this.caverna = null;
     }
 
     /**

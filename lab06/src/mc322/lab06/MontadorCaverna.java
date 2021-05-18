@@ -1,6 +1,8 @@
 package mc322.lab06;
 
 public class MontadorCaverna {
+    private Caverna caverna;
+
 
     public Caverna montarCaverna(String path) {
         String componentes[][] = lerComponentes(path);
@@ -99,6 +101,10 @@ public class MontadorCaverna {
                 }
             }
         }
+    }
+
+    public Caverna getCaverna() {
+        return caverna;
     }
 
     public void criarFedor(){}

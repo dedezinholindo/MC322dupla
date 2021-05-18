@@ -6,7 +6,7 @@ public class Sala {
     private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
     private Componente componentesNaoPrimarios[]; // componentes não primários presentes na sala.
     private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
-    private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
+    private Heroi heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
 
     /**
      * Inicializa um sala.
@@ -50,7 +50,7 @@ public class Sala {
     /**
      * Retorna o herói da sala.
      */
-    public Componente getHeroi() {
+    public Heroi getHeroi() {
         return this.heroi;
     }
 
@@ -87,7 +87,7 @@ public class Sala {
      * heroi: herói a adicionar à sala.
      * Adiciona o herói à sala.
      */
-    public void setHeroi(Componente heroi) {
+    public void setHeroi(Heroi heroi) {
         this.heroi = heroi;
     }
 

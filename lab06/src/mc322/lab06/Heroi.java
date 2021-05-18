@@ -7,13 +7,20 @@ public class Heroi extends Componente {
     private boolean flechaEquipada; //se equipar na proxima sala ele perde uma flecha automaticamente
     private int ourosColetados;
     private int vidas; //qtd de vidas que ele possui (perde se cair no buraco ou Wumpus matar)
+    private Caverna caverna;
 
     /**
      * coordenadas: coordenadas do heroi.
      * Inicializa um heroi.
      */
-    Heroi(int[] coordenadas) {
+    Heroi(int[] coordenadas, int flechasDisponiveis, String nome, int vidas, Caverna caverna) {
         super('P', coordenadas);
+        this.nome = nome;
+        this.flechasDisponiveis = flechasDisponiveis;
+        this.flechaEquipada = false;
+        this.ourosColetados = 0;
+        this.vidas = vidas;
+        this.caverna = caverna;
     }
 
     /**
@@ -47,6 +54,10 @@ public class Heroi extends Componente {
         return vidas;
     }
 
+    public Caverna getCaverna() {
+        return caverna;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -67,12 +78,26 @@ public class Heroi extends Componente {
         this.vidas = vidas;
     }
 
-    public int[] movimentar(int[] destino);//retorna as cordenadas finais para serem trocadas na caverna
-    //controle fara isso
+    public void setCaverna(Caverna caverna) {
+        this.caverna = caverna;
+    }
 
+    //assume que o movimento eh permitido
+    public void movimentar(int[] destino){
+        this.coordenadas = destino;
+    }
+
+    public void equiparFlecha(){
+        this.flechasDisponiveis -= 1;
+        this.flechaEquipada = true;
+    }
+
+    public void coletarOuro(){
+        this.ourosColetados += 1;
+    }
     public void apresentarHeroi(){
         System.out.println("|| Player: " + this.getNome());
-        System.out.println("|| Score: " + this.getScore());
+        //lembrar de apresentar pontuacao!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         System.out.println("|| Lifes: " + this.getVidas());
         System.out.println("|| Arrows: " + this.getFlechasDisponiveis());
         if (this.getFlechasDisponiveis() != 0){
