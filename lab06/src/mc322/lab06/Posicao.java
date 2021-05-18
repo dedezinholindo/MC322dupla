@@ -37,11 +37,8 @@ public class Posicao {
         return ((coordenadas[0] >= 0 && coordenadas[0] < 4) && (coordenadas[1] >= 0 && coordenadas[1] < 4));
     }
 
-    public boolean comapararCoordenadas(int[2] a, int[2] b){
-        if (a[0] == b[0] && a[1] == b[1]){
-            return true;
-        }
-        return false;
+    public boolean comapararCoordenadas(int[] a, int[] b){
+        return (a[0] == b[0] && a[1] == b[1]);
     }
 
     //retornara quem tem preferencia de impressao em determinadda sala

@@ -1,4 +1,4 @@
-package mc322.lab06;
+  package mc322.lab06;
 
 public abstract class Componente {
     protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,

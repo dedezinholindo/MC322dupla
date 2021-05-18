@@ -21,8 +21,7 @@ public class Caverna {
         for (int i = 0; i < 4; i++) {
             System.out.print((i + 1) + " ");
             for (int j = 0; j < 4; j++) {
-                char c = Posicao.preferenciaDeImpressao(salas[i][j]);
-                System.out.print(c + " ");
+                System.out.print(this.salas[i][j].tipoComponentePriotario() + " ");
             }
             System.out.println();
         }

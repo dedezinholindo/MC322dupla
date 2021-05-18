@@ -6,7 +6,7 @@ public class Sala {
     private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
     private Componente componentesNaoPrimarios[]; // componentes não primários presentes na sala.
     private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
-    private Heroi heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
+    private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
 
     /**
      * Inicializa um sala.
@@ -50,7 +50,7 @@ public class Sala {
     /**
      * Retorna o herói da sala.
      */
-    public Heroi getHeroi() {
+    public Componente getHeroi() {
         return this.heroi;
     }
 
@@ -76,7 +76,7 @@ public class Sala {
      * contrário.
      */
     public boolean setComponentePrimario(Componente componentePrimario) {
-        if (this.componentePrimario == null || componentePrimario == null) { //para poder eliminar o wumpus
+        if (this.componentePrimario == null) {
             this.componentePrimario = componentePrimario;
             return true;
         }
@@ -87,7 +87,7 @@ public class Sala {
      * heroi: herói a adicionar à sala.
      * Adiciona o herói à sala.
      */
-    public void setHeroi(Heroi heroi) {
+    public void setHeroi(Componente heroi) {
         this.heroi = heroi;
     }
 
@@ -135,5 +135,32 @@ public class Sala {
      */
     public void retirarHeroi() {
         this.heroi = null;
+    }
+
+    /**
+     * Retorna o tipo do componente prioritário da sala.
+     */
+    public char tipoComponentePriotario() {
+        if (!this.revelada) { // sala não revelada.
+            return '-';
+        }
+        if (this.componentePrimario != null) { // há componente primário.
+            return this.componentePrimario.getTipo();
+        }
+        if (this.heroi != null) { // há herói.
+            return this.heroi.getTipo();
+        }
+        if (this.numComponentesNaoPrimarios > 0) { // há componente não primário.
+            char tipoComponentePriotario = this.componentesNaoPrimarios[0];
+            if (tipoComponentePriotario != 'f') {
+                for (int i = 1; i < this.numComponentesNaoPrimarios; i++) {
+                    if (this.componentesNaoPrimarios[i].getTipo() == 'f') {
+                        tipoComponentePriotario = 'f';
+                    }
+                }
+            }
+            return tipoComponentePriotario;
+        }
+        return '#'; // sala vazia.
     }
 }
