@@ -6,7 +6,9 @@ public class AppMundoWumpus {
 
     Scanner teclado = new Scanner(System.in);
     String comando = teclado.nextLine();
-    while()//enquanto o comando nao é 'q' ou o usuario nao perder ou ganhar o jogo faça isso
-    comando = teclado.nextLine();
+    while()
 
+    {//enquanto o comando nao é 'q' ou o usuario nao perder ou ganhar o jogo faça isso
+        comando = teclado.nextLine();
+    }
 }

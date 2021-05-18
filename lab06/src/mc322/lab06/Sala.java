@@ -76,7 +76,7 @@ public class Sala {
      * contrário.
      */
     public boolean setComponentePrimario(Componente componentePrimario) {
-        if (this.componentePrimario == null) {
+        if (this.componentePrimario == null || componentePrimario == null) { //para poder eliminar o wumpus
             this.componentePrimario = componentePrimario;
             return true;
         }

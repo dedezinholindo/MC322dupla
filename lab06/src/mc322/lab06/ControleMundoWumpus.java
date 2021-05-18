@@ -75,11 +75,44 @@ public class ControleMundoWumpus {
     //soltar sempre na rodada seguinte
     public boolean equiparFlecha(); //fazer
 
+    private int[] localizarWumpus(Caverna caverna){
+        Sala[4][4] salas = caverna.getSalas();
+        Componente wumpus;
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 4; j++){
+                Componente c = sala[i][j].getComponentePrimario();
+                if (c != null){
+                    if (c.getTipo() == 'W'){
+                        wumpus = c;
+                        break; //pois so tem um wumpus
+                    }
+                }
+            }
+        }
+        return wumpus.getCoordenadas();
+    }
+
+    private void eliminarWumpus(int[] localizacaoWumpus){
+        Caverna cav = heroi.getCaverna();
+        Sala[4][4] salas = caverna.getSalas();
+        boolean var = salas[localizacaoWumpus[0]][localizacaoWumpus[1]].setComponentePrimario(null);
+        cav.setSalas(salas);
+        heroi.setCaverna(cav); //caverna sem o wumpus
+    }
+
     //verificar se matou o Wumpus
     public void dispararFlecha(){
         if (heroi.isFlechaEquipada){
             heroi.setFlechaEquipada(false);
             System.out.println("Uma flecha foi disparada!");
+            int[] localizacaoWumpus = localizarWumpus(heroi.getCaverna);
+            if (Posicao.compararCoordenadas(heroi.getCoordenadas(), localizacaoWumpus)){
+
+                System.out.println("PARABÉNS! Você exterminou o Wumpus!!!");
+            }
+            else {
+                System.out.println("Flecha disparada no imenso e triste vazio ;(");
+            }
         }
     }
 
@@ -137,6 +170,7 @@ public class ControleMundoWumpus {
                 sairJogo();
                 break;
         }
+        dispararFlecha(); //dispara uma flecha sempre que esta esta equipada
     }
     /**
      * incremento: incremento para a pontuação, pode ser positivo ou negativo.
