@@ -34,10 +34,8 @@ public class Wumpus extends Componente {
             Componente componenteAssociado;
             for (int i = 0; i < 4; i++) {
                 if (Posicao.valida(coordenadasComponentesAssociados[i])) {
-                    componenteAssociado = new Componente('f', coordenadasComponentesAssociados[i]);
-                    if (!componenteAssociado.setCaverna(caverna)) {
-                        return false;
-                    }
+                    componenteAssociado = new Fedor('f', coordenadasComponentesAssociados[i]);
+                    componenteAssociado.setCaverna(caverna);
                 }
             }
             return true;

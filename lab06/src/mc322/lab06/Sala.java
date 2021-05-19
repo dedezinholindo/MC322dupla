@@ -165,13 +165,4 @@ public class Sala {
         }
         return '#'; // sala vazia.
     }
-
-    /**
-     * Retorna true, caso a sala esteja vazia, e false, caso o contrário.
-     */
-    public boolean isVazia() {
-        return (this.numComponentesNaoPrimarios == 0 &&
-                    this.componentePrimario == null &&
-                    this.heroi == null);
-    }
 }

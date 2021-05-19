@@ -83,26 +83,6 @@ public class MontadorCaverna {
         return componentes;
     }
 
-    //problema: criar as brisas sem ter acesso direto a ela
-    public Caverna criarBrisas(Caverna cav){
-        Caverna c = cav;
-        Sala[][] s = c.getSalas();
-        int [] coordenadas;
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                for (int k = 0; k < s.getNumComponentes(); k++){
-                    if (s[i][j].componentes[k].getTipo() == 'B'){
-                        int [] coordenadas = {i, j + 1};
-                        if (Posicao.valida(coordenadas)){
-                            Componete b = new Brisa(coordenadas);
-
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public Caverna getCaverna() {
         return caverna;
     }
