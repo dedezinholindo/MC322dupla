@@ -36,7 +36,7 @@ public class Wumpus extends Componente {
     /**
      * caverna: caverna.
      * Retorna true, caso adicione o componente e os seus componentes
-     * associados à caverna e associe-a ao componente, e false, caso o
+     * associados à caverna e associe-a ao componente, e false, caso o  ????????????????????????????????????????/
      * contrário.
      */
     public boolean setCaverna(Caverna caverna) {

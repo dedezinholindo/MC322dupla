@@ -11,7 +11,6 @@ public class ControleMundoWumpus {
     private int pontuacao;
     private Heroi heroi;
     private String nomeUsuario;
-    private boolean jogoFinalizado;
 
     /**
      * heroi: herói do jogo.
@@ -22,7 +21,6 @@ public class ControleMundoWumpus {
         this.pontuacao = 0;
         this.heroi = heroi;
         this.nomeUsuario = nomeUsuario;
-        this.jogoFinalizado = false;
     }
 
     /**
@@ -61,7 +59,7 @@ public class ControleMundoWumpus {
         if (morte) {
             apresentarJogo();
             System.out.println("Você morreu!");
-        } else if (this.heroi.getOurosColetados() > 0) {
+        } else if (this.heroi.getOurosColetados() > 0) { //aqui o heroi tem q estar na posicao (1,1) com o ouro
             incrementarPontuacao(INCREMENTO_SAIDA_COM_OURO);
             apresentarJogo();
             System.out.println("Você venceu!");
@@ -69,7 +67,7 @@ public class ControleMundoWumpus {
             apresentarJogo();
             System.out.println("Fim de jogo.");
         }
-        this.jogoFinalizado = true;
+        System.exit(0);
     }
 
     /**
@@ -129,11 +127,6 @@ public class ControleMundoWumpus {
      * Executa o comando, caso possível.
      */
     public void executarComando(String comando) {
-        if (isJogoFinalizado()) {
-            apresentarJogo();
-            System.out.println("O jogo já foi finalizado!");
-            return;
-        }
         switch (comando) {
             case "w":
                 if (movimentarCima()) {
@@ -178,13 +171,14 @@ public class ControleMundoWumpus {
                 break;
             default:
                 System.out.println("Comando inválido!");
+                break;
         }
         int estado = this.heroi.atualizarEstado();
         if (estado == 1) {
-                System.out.println("Você derrotou o Wumpus!");
+                System.out.println("Você derrotou o Wumpus XD!!!");
                 incrementarPontuacao(INCREMENTO_VITORIA_WUMPUS);
         } else if (estado == 2) {
-                System.out.println("O Wumpus lhe derrotou!");
+                System.out.println("O Wumpus lhe derrotou! ;(");
                 incrementarPontuacao(INCREMENTO_MORTE);
                 finalizarJogo(true);
         } else if (estado == 3) {
@@ -192,7 +186,7 @@ public class ControleMundoWumpus {
             incrementarPontuacao(INCREMENTO_MORTE);
             finalizarJogo(true);
         } else if (estado == 4) {
-            System.out.println("Há ouro nessa sala!");
+            System.out.println("Há ouro nessa sala! $)");
         }
         if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
             this.heroi.dispararFlecha(); 

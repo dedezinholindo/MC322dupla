@@ -19,7 +19,6 @@ public class Heroi extends Componente {
         this.flechasDisponiveis = MAX_FLECHAS_INICIAIS;
         this.flechaEquipada = false;
         this.ourosColetados = 0;
-        this.caverna = null;
     }
 
     /**
@@ -86,7 +85,7 @@ public class Heroi extends Componente {
     /**
      * Retorna true, caso o herói vença o Wumpus, e false, caso o contrário.
      */
-    public boolean batalharWumpus() {
+    public boolean batalharWumpus() { //HEROI ESTA BATALHANDO MESMO SE SUA FLECHA NAO ESTA EQUIPADA
         if (this.flechaEquipada) {
             Random gerador = new Random();
             return gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
