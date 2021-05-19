@@ -37,32 +37,13 @@ public class Posicao {
         return ((coordenadas[0] >= 0 && coordenadas[0] < 4) && (coordenadas[1] >= 0 && coordenadas[1] < 4));
     }
 
-    public boolean comapararCoordenadas(int[] a, int[] b){
-        return (a[0] == b[0] && a[1] == b[1]);
+    /**
+     * coordenadasA: coordenadas.
+     * coordenadasB: coordenadas.
+     * Retorna true, caso ambas coordenadas sejam iguais, e false, caso o
+     * contrário.
+     */
+    public boolean compararCoordenadas(int[] coordenadasA, int[] coordenadasB) {
+        return (coordenadasA[0] == coordenadasB[0] && coordenadasA[1] == coordenadasB[1]);
     }
-
-    //retornara quem tem preferencia de impressao em determinadda sala
-    public static char preferenciaDeImpressao(Sala s){
-        char retorno = null;
-        for (int i = 0; i < (s.getComponentes()).length; i++){
-            char c = ((s.getComponentes())[i]).getTipo();
-            if (c == 'O' | c == 'W' | c == 'B' ){
-                return c;
-            }
-            if (c == 'P'){
-                retorno = c;
-            } else if (c == 'f' && (retorno == null)){
-                retorno = c;
-            } else if (retorno == null && (c == 'b')){
-                retorno = c;
-            }
-        }
-        if (s.getComponentes()).length == 0 && (s.isVisitada()){
-            return '#';
-        } else if (s.getComponentes()).length == 0 && !(s.isVisitada()){
-            return '-';
-        }
-        return retorno;
-    }
-
 }

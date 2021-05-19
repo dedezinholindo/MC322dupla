@@ -1,7 +1,7 @@
 package mc322.lab06;
 
 public class Caverna {
-    private qtdOuros, qtdWumpus; //se heroi ourosColetados = qtdOuros ele pode sair
+    private int qtdOuros; //se heroi ourosColetados = qtdOuros ele pode sair
     private Sala[][] salas;
 
     Caverna() {
@@ -11,10 +11,6 @@ public class Caverna {
                 Sala[i][j] = new Sala();
             }
         }
-    }
-
-    public Sala[] getSalas() {
-        return salas;
     }
 
     public void setSalas(Sala[] salas) {

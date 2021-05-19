@@ -1,8 +1,8 @@
 package mc322.lab06;
 
 public class Heroi extends Componente {
+    
     private String nome;
-    //quando mostrar essas informacoes abaixo mostrar quantos tem atualemte e o total(Ex: 2/5)
     private int flechasDisponiveis; //deixar em aberto caso expanda o jogo e queira mais flechas
     private boolean flechaEquipada; //se equipar na proxima sala ele perde uma flecha automaticamente
     private int ourosColetados;

@@ -1,61 +1,40 @@
 package mc322.lab06;
 
 public class MontadorCaverna {
-    private Caverna caverna;
 
+    private static int MIN_QUANT_BURACO = 2;
+    private static int MAX_QUANT_BURACO = 3;
+    private static int MIN_QUANT_WUMPUS = 1;
+    private static int MAX_QUANT_WUMPUS = 1;
+    private static int MIN_QUANT_OURO = 1;
+    private static int MAX_QUANT_OURO = 1;
+    private static int[] COORD_INI_HEROI = {1, 1};
 
     public Caverna montarCaverna(String path) {
-        String componentes[][] = lerComponentes(path);
-
-
-
-    }
-
-    private void mensagemErro(int valor, int valorIdeal, String componete){
-        if (valor != valorIdeal){
-            System.out.println("Valor do " + componete + " difere do valor ideal.");
-        } //encerrar programa?
-    }
-
-    //verifica a quantidade de todos os componentes de uma vez (mais eficiente)
-    //baseado numa quantidade ideal
-    public void verificarComponentes(Caverna cav, int idWumpus, int idOuro, int idBuraco, int idHeroi){
-        int wumpus = 0, ouro = 0, buraco = 0, heroi = 0;
-        Sala[][] s = cav.getSalas();
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 4; j++){
-                ArrayList<Componente> c = s[i][j].getComponentes();
-                for (int k = 0; k < s[i][j].getNumComponentes(); k++){
-                    switch (c.getTipo()){
-                        case 'W':
-                            wumpus += 1;
-                            break;
-                        case 'P':
-                            heroi += 1;
-                            break;
-                        case 'O':
-                            ouro += 1;
-                            break;
-                        case 'B':
-                            buraco += 1;
-                    }
-                }
-            }
+        Caverna caverna = new Caverna();
+        Componente componentes[] = lerComponentes(path);
+        if (componentes == null) {
+            return null;
         }
-        mensagemErro(heroi, idHeroi, "Heroi");
-        mensagemErro(wumpus, idWumpus, "Wumpus");
-        mensagemErro(buraco, idBuraco, "Buraco");
-        mensagemErro(ouro, idOuro, "Ouro");
+        for (int i = 0; i < componentes.length; i++) {
+            componentes[i].setCaverna(caverna);
+        }
+        return caverna;
     }
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna um vetor com os componentes.
+     * Retorna um vetor com os componentes, ou null, caso seja uma caverna
+     * inválida.
      */
-    public Componentes[] lerComponentes(String path) {
+    public Componente[] lerComponentes(String path) {
         CSVHandling csv = new CSVHandling();
         String infoComponentes[][];
-        Componentes componentes[];
+        Componente componentes[];
+        int quantBuraco = 0;
+        int quantWumpus = 0;
+        int quantOuro = 0;
+        int quantHeroi = 0;
         csv.setDataSource(path);
         infoComponentes = csv.requestCommands();
         componentes = new Componente[infoComponentes.length];
@@ -64,21 +43,37 @@ public class MontadorCaverna {
             case '_':
                 componentes[i] = Componente(infoComponentes[i]);
                 break;
-            case 'W':
-                componentes[i] = Wumpus(infoComponentes[i]);
-                break;
             case 'B':
                 componentes[i] = Buraco(infoComponentes[i]);
+                quantBuraco++;
+                break;
+            case 'W':
+                componentes[i] = Wumpus(infoComponentes[i]);
+                quantWumpus++;
                 break;
             case 'O':
                 componentes[i] = Ouro(infoComponentes[i]);
+                quantOuro++;
                 break;
             case 'P':
                 componentes[i] = Heroi(infoComponentes[i]);
+                if (!Posicao.compararCoordenadas(COORD_INI_HEROI, componentes[i].getCoordenadas)) {
+                    return null;
+                }
+                quantHeroi++;
                 break;
             default:
                 return null;
             }
+        }
+        if ((quantBuraco < MIN_QUANT_BURACO) ||
+                (quantBuraco > MAX_QUANT_BURACO) ||
+                (quantWumpus < MIN_QUANT_WUMPUS) ||
+                (quantWumpus > MAX_QUANT_WUMPUS) ||
+                (quantOuro < MIN_QUANT_OURO) ||
+                (quantOuro > MAX_QUANT_OURO) ||
+                (quantHeroi != 1)) {
+            return null;
         }
         return componentes;
     }
