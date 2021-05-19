@@ -168,7 +168,7 @@ public class Sala {
             return this.heroi.getTipo();
         }
         if (this.numComponentesNaoPrimarios > 0) { // há componente não primário.
-            char tipoComponentePriotario = this.componentesNaoPrimarios[0];
+            char tipoComponentePriotario = this.componentesNaoPrimarios[0].getTipo();
             if (tipoComponentePriotario != 'f') {
                 for (int i = 1; i < this.numComponentesNaoPrimarios; i++) {
                     if (this.componentesNaoPrimarios[i].getTipo() == 'f') {

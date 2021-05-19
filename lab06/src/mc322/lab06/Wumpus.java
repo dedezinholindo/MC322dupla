@@ -9,9 +9,10 @@ public class Wumpus extends Componente {
     Wumpus(int[] coordenadas) {
         super('W', coordenadas);
         int coordenadasComponentesAssociados[][] = coordenadasComponentesAssociados();
+        this.componentesAssociados = new Componente[4];
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
-                this.componentesAssociados[i] = new Fedor('f', coordenadasComponentesAssociados[i]);
+                this.componentesAssociados[i] = new Fedor(coordenadasComponentesAssociados[i]);
                 this.numComponentesAssociados++;
             }
         }
@@ -35,7 +36,7 @@ public class Wumpus extends Componente {
     public boolean setCaverna(Caverna caverna) {
         if (caverna.adicionarComponente(this)) {
             for (int i = 0; i < this.numComponentesAssociados; i++) {
-                    this.componenteAssociados[i].setCaverna(caverna);
+                    this.componentesAssociados[i].setCaverna(caverna);
             }
             return true;
         }

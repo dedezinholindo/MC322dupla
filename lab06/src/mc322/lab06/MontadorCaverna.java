@@ -8,7 +8,7 @@ public class MontadorCaverna {
     private static int MAX_QUANT_WUMPUS = 1;
     private static int MIN_QUANT_OURO = 1;
     private static int MAX_QUANT_OURO = 1;
-    private static int[] COORD_INI_HEROI = {0, 0};
+    private int[] COORD_INI_HEROI = {0, 0};
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
@@ -17,38 +17,16 @@ public class MontadorCaverna {
      */
     public Heroi montarCaverna(String path) {
         Caverna caverna = new Caverna();
-        Componente componentes[] = lerComponentes(path);
-        if (componentes == null) {
+        String infoComponentes[][] = lerComponentes(path);
+        if (infoComponentes == null) {
             return null;
         }
-        Heroi heroi; //verificar se a posicao (1,1)!!!!!!!!!!!!!!!!!!!!!!! (verificação deve ser feita na leitura)
-        for (int i = 0; i < componentes.length; i++) {
-            if (!componentes[i].setCaverna(caverna)) {
-                return null;
-            }
-            if (componentes[i].getTipo() == 'P') { // caso o arquivo dê as informações fora de ordem.
-                heroi = componentes[i];
-            }
-        }
-        return heroi;
-    }
-
-    /**
-     * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna um vetor com os componentes do arquivo, ou null, caso seja uma
-     * caverna inválida.
-     */
-    private Componente[] lerComponentes(String path) {
-        CSVHandling csv = new CSVHandling();
-        String infoComponentes[][];
-        Componente componentes[];
+        Heroi heroi;
+        Componente componentes[] = new Componente[infoComponentes.length - 1];
         int quantBuraco = 0;
         int quantWumpus = 0;
         int quantOuro = 0;
         int quantHeroi = 0;
-        csv.setDataSource(path);
-        infoComponentes = csv.requestCommands();
-        componentes = new Componente[infoComponentes.length];
         for (int i = 0; i < componentes.length; i++) {
             switch (infoComponentes[i][1]) {
             case '_':
@@ -67,8 +45,8 @@ public class MontadorCaverna {
                 quantOuro++;
                 break;
             case 'P':
-                componentes[i] = new Heroi(infoComponentes[i]);
-                if (!Posicao.compararCoordenadas(COORD_INI_HEROI, componentes[i].getCoordenadas())) {
+                heroi = new Heroi(infoComponentes[i]);
+                if (!Posicao.compararCoordenadas(COORD_INI_HEROI, heroi.getCoordenadas())) {
                     return null;
                 }
                 quantHeroi++;
@@ -86,6 +64,27 @@ public class MontadorCaverna {
                 (quantHeroi != 1)) {
             return null;
         }
-        return componentes;
+        if (!heroi.setCaverna(caverna)) {
+            return null;
+        };
+        for (int i = 0; i < componentes.length; i++) {
+            if (!componentes[i].setCaverna(caverna)) {
+                return null;
+            }
+        }
+        return heroi;
+    }
+
+    /**
+     * path: path para um arquivo com os componentes de uma caverna a montar.
+     * Retorna um vetor com os componentes do arquivo, ou null, caso seja uma
+     * caverna inválida.
+     */
+    private String[][] lerComponentes(String path) {
+        CSVHandling csv = new CSVHandling();
+        String infoComponentes[][];
+        csv.setDataSource(path);
+        infoComponentes = csv.requestCommands();
+        return infoComponentes;
     }
 }

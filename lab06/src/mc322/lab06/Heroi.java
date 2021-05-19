@@ -74,8 +74,12 @@ public class Heroi extends Componente {
      * Retorna true, caso o herói colete o ouro, e false, caso não haja ouro.
      */
     public boolean coletarOuro() {
-        if (this.caverna.getComponentePrimario(this.coordenadas).getTipo() == 'O') {
-            this.caverna.retirarComponente(componente);
+        Componente ouro = this.caverna.getComponentePrimario(this.coordenadas);
+        if (ouro == null) {
+            return false;
+        }
+        if (ouro.getTipo() == 'O') {
+            this.caverna.retirarComponente(ouro);
             this.ourosColetados++;
             return true;
         }
@@ -102,7 +106,7 @@ public class Heroi extends Componente {
      */
     public int atualizarEstado() {
         Componente componentePrimario = this.caverna.getComponentePrimario(this.coordenadas);
-        if (componente == null) {
+        if (componentePrimario == null) {
             return 0;
         } else if (componentePrimario.getTipo() == 'W') {
             return (batalharWumpus()) ? 1 : 2;

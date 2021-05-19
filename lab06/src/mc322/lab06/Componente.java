@@ -62,6 +62,13 @@ public abstract class Componente {
     }
 
     /**
+     * Retorna a caverna do componente.
+     */
+    public Caverna getCaverna() {
+        return this.caverna;
+    }
+
+    /**
      * Retorna true, caso o componente seja primário, e false, caso contrário.
      */
     public boolean isPrimario() {

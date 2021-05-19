@@ -9,9 +9,10 @@ public class Buraco extends Componente {
     Buraco(int[] coordenadas) {
         super('B', coordenadas);
         int coordenadasComponentesAssociados[][] = coordenadasComponentesAssociados();
+        this.componentesAssociados = new Componente[4];
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
-                this.componentesAssociados[i] = new Brisa('b', coordenadasComponentesAssociados[i]);
+                this.componentesAssociados[i] = new Brisa(coordenadasComponentesAssociados[i]);
                 this.numComponentesAssociados++;
             }
         }
@@ -35,7 +36,7 @@ public class Buraco extends Componente {
     public boolean setCaverna(Caverna caverna) {
         if (caverna.adicionarComponente(this)) {
             for (int i = 0; i < this.numComponentesAssociados; i++) {
-                    this.componenteAssociados[i].setCaverna(caverna);
+                    this.componentesAssociados[i].setCaverna(caverna);
             }
             return true;
         }
