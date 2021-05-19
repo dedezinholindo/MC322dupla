@@ -9,7 +9,7 @@ public class Buraco extends Componente {
      * coordenadas: coordenadas do buraco.
      * Inicializa um buraco.
      */
-    Buraco(int[] coordenadas) { //adicionar componentes associados nas salas!!!!!!!!!!!!!!!!!!!!!
+    Buraco(int[] coordenadas) { //adicionar componentes associados nas salas!!!!!!!!!!!!!!!!!!!!! (isso é feito ao conectar a caverna)
         super('B', coordenadas);
         int coordenadasComponentesAssociados[][] = Posicao.criarComponentesAssociados(this.componentesAssociados);
         for (int i = 0; i < 4; i++) {

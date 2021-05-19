@@ -3,9 +3,9 @@ package mc322.lab06;
 public class ControleMundoWumpus {
 
     private static int INCREMENTO_SAIDA_COM_OURO = 1000;
-    private static int DECREMENTO_MORTE = -1000;
-    private static int DECREMENTO_MOVIMENTO = -15;
-    private static int DECREMENTO_USO_FLECHA = -100;
+    private static int INCREMENTO_MORTE = -1000;
+    private static int INCREMENTO_MOVIMENTO = -15;
+    private static int INCREMENTO_USO_FLECHA = -100;
     private static int INCREMENTO_VITORIA_WUMPUS = 500;
 
     private int pontuacao;
@@ -123,28 +123,28 @@ public class ControleMundoWumpus {
         switch (comando) {
             case "w":
                 if (movimentarCima()) {
-                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
+                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala acima!");
                 }
                 break;
             case "s":
                 if (movimentarBaixo()) {
-                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
+                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala abaixo!");
                 }
                 break;
             case "d":
                 if (movimentarDireita()) {
-                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
+                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à direita!");
                 }
                 break;
             case "a":
                 if (movimentarEsquerda()) {
-                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
+                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à esquerda!");
                 }
@@ -172,18 +172,18 @@ public class ControleMundoWumpus {
                 incrementarPontuacao(INCREMENTO_VITORIA_WUMPUS);
         } else if (estado == 2) {
                 System.out.println("O Wumpus lhe derrotou! ;(");
-                incrementarPontuacao(DECREMENTO_MORTE);
+                incrementarPontuacao(INCREMENTO_MORTE);
                 finalizarJogo(true);
         } else if (estado == 3) {
             System.out.println("Você caiu em um buraco! :o");
-            incrementarPontuacao(DECREMENTO_MORTE);
+            incrementarPontuacao(INCREMENTO_MORTE);
             finalizarJogo(true);
         } else if (estado == 4) {
             System.out.println("Há ouro nessa sala! $)");
         }
         if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
             this.heroi.dispararFlecha(); 
-            incrementarPontuacao(DECREMENTO_USO_FLECHA);
+            incrementarPontuacao(INCREMENTO_USO_FLECHA);
         }
     }
 

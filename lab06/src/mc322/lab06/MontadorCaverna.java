@@ -8,7 +8,7 @@ public class MontadorCaverna {
     private static int MAX_QUANT_WUMPUS = 1;
     private static int MIN_QUANT_OURO = 1;
     private static int MAX_QUANT_OURO = 1;
-    private static int[] COORD_INI_HEROI = {1, 1};
+    private static int[] COORD_INI_HEROI = {0, 0};
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
@@ -21,7 +21,7 @@ public class MontadorCaverna {
         if (componentes == null) {
             return null;
         }
-        Heroi heroi; //verificar se a posicao (1,1)!!!!!!!!!!!!!!!!!!!!!!!
+        Heroi heroi; //verificar se a posicao (1,1)!!!!!!!!!!!!!!!!!!!!!!! (verificação deve ser feita na leitura)
         for (int i = 0; i < componentes.length; i++) {
             if (!componentes[i].setCaverna(caverna)) {
                 return null;

@@ -4,13 +4,11 @@ import java.util.Scanner;
 
 public class AppMundoWumpus {
 
-    private static int[] COORD_INI_HEROI = {1, 1};
-
     public static void main(String args[]) {
         Heroi heroi = MontadorCaverna.montarCaverna(args[0]);
         if (heroi == null) {
             System.out.println("Arquivo inválido!");
-            System.exit(0); //sai do programa
+            return; //sai do programa
         }
         Scanner teclado = new Scanner(System.in);
         String nomeUsuario;
