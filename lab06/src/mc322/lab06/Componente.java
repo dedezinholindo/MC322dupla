@@ -4,7 +4,8 @@ public abstract class Componente {
     protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,
                             'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
     protected int coordenadas[]; //indice 0 eh a linha e 1 a coluna
-
+    protected Caverna caverna;
+    
     /**
      * tipo: tipo do componente.
      * coordenadas: coordenadas do componente.
@@ -13,6 +14,7 @@ public abstract class Componente {
     Componente(char tipo, int[] coordenadas) {
         this.tipo = tipo;
         this.coordenadas = coordenadas;
+        this.caverna = null;
     }
 
     /**
@@ -25,24 +27,39 @@ public abstract class Componente {
                Posicao.coordenadasParaInt(componente[0]));
     }
 
+    /**
+     * Retorna o tipo do componente.
+     */
     public char getTipo() {
         return tipo;
     }
 
+    /**
+     * Retorna as coordenadas do componente.
+     */
     public int[] getCoordenadas() {
         return coordenadas;
     }
 
-    public void setTipo(char tipo) {
-        this.tipo = tipo;
-    }
-
+    /**
+     * coordenadas: coordenadas para o componente.
+     * Altera as coordenadas do componente.
+     */
     public void setCoordenadas(int[] coordenadas) {
         this.coordenadas = coordenadas;
     }
 
-    public void setCaverna(Caverna caverna) {
-        
+    /**
+     * caverna: caverna a conectar ao componente.
+     * Retorna true, caso adicione o componente e os seus componentes
+     * associados à caverna, e false, caso o contrário.
+     */
+    public boolean setCaverna(Caverna caverna) {
+        if (caverna.adicionarComponente(this)) {
+            this.caverna = caverna;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -50,4 +67,5 @@ public abstract class Componente {
      */
     public boolean isPrimario() {
         return (this.tipo == 'W' || this.tipo == 'B' || this.tipo == 'O');
+    }
 }

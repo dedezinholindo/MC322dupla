@@ -6,7 +6,11 @@ public class Caverna {
 
     Caverna() {
         this.salas = new Sala[4][4];
-        //criar salas aqui (ele diz que esse objeto eh responsavel por associar cada componente em sua sala)
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                Sala[i][j] = new Sala();
+            }
+        }
     }
 
     public Sala[] getSalas() {
@@ -27,5 +31,9 @@ public class Caverna {
         }
         System.out.println(" 1 2 3 4");
     }
-    //apresentar o heroi na classe heroi
+
+    public boolean adicionarComponente(Componente componente) {
+        int coordenadas[] = componente.getCoordenadas();
+        return this.salas[coordenadas[0]][coordenadas[1]].adicionarComponente(componente);
+    }
 }

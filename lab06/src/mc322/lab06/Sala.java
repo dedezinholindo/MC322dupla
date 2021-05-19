@@ -1,9 +1,11 @@
 package mc322.lab06;
 
 public class Sala {
+
+    private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
+    
     private boolean revelada; // indica se a sala está revelada.
     private int numComponentesNaoPrimarios; // número de componentes não primários presentes na sala.
-    private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
     private Componente componentesNaoPrimarios[]; // componentes não primários presentes na sala.
     private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
     private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
@@ -162,5 +164,14 @@ public class Sala {
             return tipoComponentePriotario;
         }
         return '#'; // sala vazia.
+    }
+
+    /**
+     * Retorna true, caso a sala esteja vazia, e false, caso o contrário.
+     */
+    public boolean isVazia() {
+        return (this.numComponentesNaoPrimarios == 0 &&
+                    this.componentePrimario == null &&
+                    this.heroi == null);
     }
 }
