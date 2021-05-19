@@ -21,7 +21,7 @@ public class MontadorCaverna {
         if (componentes == null) {
             return null;
         }
-        Heroi heroi;
+        Heroi heroi; //verificar se a posicao (1,1)!!!!!!!!!!!!!!!!!!!!!!!
         for (int i = 0; i < componentes.length; i++) {
             if (!componentes[i].setCaverna(caverna)) {
                 return null;
@@ -68,7 +68,7 @@ public class MontadorCaverna {
                 break;
             case 'P':
                 componentes[i] = new Heroi(infoComponentes[i]);
-                if (!Posicao.compararCoordenadas(COORD_INI_HEROI, componentes[i].getCoordenadas)) {
+                if (!Posicao.compararCoordenadas(COORD_INI_HEROI, componentes[i].getCoordenadas())) {
                     return null;
                 }
                 quantHeroi++;

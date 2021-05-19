@@ -3,9 +3,9 @@ package mc322.lab06;
 public class ControleMundoWumpus {
 
     private static int INCREMENTO_SAIDA_COM_OURO = 1000;
-    private static int INCREMENTO_MORTE = -1000;
-    private static int INCREMENTO_MOVIMENTO = -15;
-    private static int INCREMENTO_USO_FLECHA = -100;
+    private static int DECREMENTO_MORTE = -1000;
+    private static int DECREMENTO_MOVIMENTO = -15;
+    private static int DECREMENTO_USO_FLECHA = -100;
     private static int INCREMENTO_VITORIA_WUMPUS = 500;
 
     private int pontuacao;
@@ -38,13 +38,6 @@ public class ControleMundoWumpus {
     }
 
     /**
-     * Retorna o estado de finalização do jogo.
-     */
-    public boolean isJogoFinalizado() {
-        return this.jogoFinalizado;
-    }
-
-    /**
      * incremento: incremento para a pontuação, pode ser positivo ou negativo.
      * Incrementa a pontuação do jogo.
      */
@@ -59,13 +52,13 @@ public class ControleMundoWumpus {
         if (morte) {
             apresentarJogo();
             System.out.println("Você morreu!");
-        } else if (this.heroi.getOurosColetados() > 0) { //aqui o heroi tem q estar na posicao (1,1) com o ouro
+        } else if (this.heroi.getOurosColetados() > 0 && Posicao.compararCoordenadas(heroi.getCoordenadas(), {0,0})) { //aqui o heroi tem q estar na posicao (1,1) com o ouro
             incrementarPontuacao(INCREMENTO_SAIDA_COM_OURO);
             apresentarJogo();
-            System.out.println("Você venceu!");
+            System.out.println("Você venceu!:)))");
         } else {
             apresentarJogo();
-            System.out.println("Fim de jogo.");
+            System.out.println("Volte sempre!");
         }
         System.exit(0);
     }
@@ -130,28 +123,28 @@ public class ControleMundoWumpus {
         switch (comando) {
             case "w":
                 if (movimentarCima()) {
-                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
+                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala acima!");
                 }
                 break;
             case "s":
                 if (movimentarBaixo()) {
-                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
+                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala abaixo!");
                 }
                 break;
             case "d":
                 if (movimentarDireita()) {
-                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
+                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à direita!");
                 }
                 break;
             case "a":
                 if (movimentarEsquerda()) {
-                    incrementarPontuacao(INCREMENTO_MOVIMENTO);
+                    incrementarPontuacao(DECREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à esquerda!");
                 }
@@ -179,18 +172,18 @@ public class ControleMundoWumpus {
                 incrementarPontuacao(INCREMENTO_VITORIA_WUMPUS);
         } else if (estado == 2) {
                 System.out.println("O Wumpus lhe derrotou! ;(");
-                incrementarPontuacao(INCREMENTO_MORTE);
+                incrementarPontuacao(DECREMENTO_MORTE);
                 finalizarJogo(true);
         } else if (estado == 3) {
-            System.out.println("Você caiu em um buraco!");
-            incrementarPontuacao(INCREMENTO_MORTE);
+            System.out.println("Você caiu em um buraco! :o");
+            incrementarPontuacao(DECREMENTO_MORTE);
             finalizarJogo(true);
         } else if (estado == 4) {
             System.out.println("Há ouro nessa sala! $)");
         }
         if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
             this.heroi.dispararFlecha(); 
-            incrementarPontuacao(INCREMENTO_USO_FLECHA);
+            incrementarPontuacao(DECREMENTO_USO_FLECHA);
         }
     }
 
@@ -203,5 +196,6 @@ public class ControleMundoWumpus {
         System.out.println("");
         System.out.println("Player: " + this.nomeUsuario);
         System.out.println("Score: " + this.pontuacao);
+        this.heroi.informacoesHeroi();
     }
 }

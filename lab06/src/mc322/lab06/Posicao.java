@@ -46,4 +46,13 @@ public class Posicao {
     public boolean compararCoordenadas(int[] coordenadasA, int[] coordenadasB) {
         return (coordenadasA[0] == coordenadasB[0] && coordenadasA[1] == coordenadasB[1]);
     }
+
+    public int[][] criarComponentesAssociados(int[] coordenadas){
+        int coordenadasComponentesAssociados[][] = new int[4][2];
+        coordenadasComponentesAssociados[0] = {coordenadas[0] + 1, coordenadas[1]};
+        coordenadasComponentesAssociados[1] = {coordenadas[0], coordenadas[1] + 1};
+        coordenadasComponentesAssociados[2] = {coordenadas[0] - 1, coordenadas[1]};
+        coordenadasComponentesAssociados[3] = {coordenadas[0], coordenadas[1] - 1};
+        return coordenadasComponentesAssociados;
+    }
 }

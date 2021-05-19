@@ -85,7 +85,7 @@ public class Heroi extends Componente {
     /**
      * Retorna true, caso o herói vença o Wumpus, e false, caso o contrário.
      */
-    public boolean batalharWumpus() { //HEROI ESTA BATALHANDO MESMO SE SUA FLECHA NAO ESTA EQUIPADA
+    public boolean batalharWumpus() {
         if (this.flechaEquipada) {
             Random gerador = new Random();
             return gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
@@ -121,5 +121,10 @@ public class Heroi extends Componente {
         this.caverna.retirarComponente(this);
         this.coordenadas = coordenadasDestino;
         this.caverna.adicionarComponente(this);
+    }
+
+    public void informacoesHeroi(){
+        System.out.println("Flechas: " + this.flechasDisponiveis);
+        System.out.println("Ouros coletados: " + this.ourosColetados);
     }
 }

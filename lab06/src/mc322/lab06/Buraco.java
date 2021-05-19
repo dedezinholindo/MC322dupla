@@ -9,13 +9,9 @@ public class Buraco extends Componente {
      * coordenadas: coordenadas do buraco.
      * Inicializa um buraco.
      */
-    Buraco(int[] coordenadas) {
+    Buraco(int[] coordenadas) { //adicionar componentes associados nas salas!!!!!!!!!!!!!!!!!!!!!
         super('B', coordenadas);
-        int coordenadasComponentesAssociados[][] = new int[4][2];
-        coordenadasComponentesAssociados[0] = new int[] {this.coordenadas[0] + 1, this.coordenadas[1]};
-        coordenadasComponentesAssociados[1] = new int[] {this.coordenadas[0], this.coordenadas[1] + 1};
-        coordenadasComponentesAssociados[2] = new int[] {this.coordenadas[0] - 1, this.coordenadas[1]};
-        coordenadasComponentesAssociados[3] = new int[] {this.coordenadas[0], this.coordenadas[1] - 1};
+        int coordenadasComponentesAssociados[][] = Posicao.criarComponentesAssociados(this.componentesAssociados);
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
                 this.componentesAssociados[i] = new Brisa('b', coordenadasComponentesAssociados[i]);
