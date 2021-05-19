@@ -1,5 +1,7 @@
 package mc322.lab06;
 
+import java.util.Random;
+
 public class Heroi extends Componente {
 
     private static int MAX_FLECHAS_INICIAIS = 1;
@@ -51,31 +53,74 @@ public class Heroi extends Componente {
     }
 
     /**
-     * Equipa uma flecha.
+     * Retorna true, caso equipe uma flecha disponível, e false, caso o contrário.
      */
-    public void equiparFlecha() {
+    public boolean equiparFlecha() {
         if (this.flechasDisponiveis > 0) {
             this.flechasDisponiveis--;
             this.flechaEquipada = true;
-        }
-    }
-
-    /**
-     * coordenadasDestino: coordenadas do destino do herói.
-     * Retorna true, caso movimente o herói para o destino, e false, caso o
-     * contrário.
-     */
-    public boolean movimentar(int[] coordenadasDestino){
-        if (Posicao.valida(coordenadasDestino)) {
-            this.caverna.retirarComponente(this);
-            this.coordenadas = coordenadasDestino;
-            this.caverna.adicionarComponente(this);
             return true;
         }
         return false;
     }
 
-    public void coletarOuro(){
-        this.ourosColetados += 1;
+    /**
+     * Desequipa a flecha.
+     */
+    public void dispararFlecha() {
+        this.flechaEquipada = false;
+    }
+
+    /**
+     * Retorna true, caso o herói colete o ouro, e false, caso não haja ouro.
+     */
+    public boolean coletarOuro() {
+        if (this.caverna.getComponentePrimario(this.coordenadas).getTipo() == 'O') {
+            this.caverna.retirarComponente(componente);
+            this.ourosColetados++;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Retorna true, caso o herói vença o Wumpus, e false, caso o contrário.
+     */
+    public boolean batalharWumpus() {
+        if (this.flechaEquipada) {
+            Random gerador = new Random();
+            return gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Retorna o código do estado atualizado do herói de acordo com a sala em
+     * que está: 0, caso ocorra nada, 1, caso derrote um Wumpus; 2, caso seja
+     * derrotado por um Wumpus; 3, caso caia em um buraco; e 4, caso encontre
+     * ouro.
+     */
+    public int atualizarEstado() {
+        Componente componentePrimario = this.caverna.getComponentePrimario(this.coordenadas);
+        if (componente == null) {
+            return 0;
+        } else if (componentePrimario.getTipo() == 'W') {
+            return (batalharWumpus()) ? 1 : 2;
+        } else if (componentePrimario.getTipo() == 'B') {
+            return 3;
+        } else { // ouro.
+            return 4;
+        }
+    }
+
+    /**
+     * coordenadasDestino: coordenadas do destino do herói.
+     * Movimenta o herói para o destino.
+     */
+    public void movimentar(int[] coordenadasDestino){
+        this.caverna.retirarComponente(this);
+        this.coordenadas = coordenadasDestino;
+        this.caverna.adicionarComponente(this);
     }
 }

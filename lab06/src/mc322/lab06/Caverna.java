@@ -20,6 +20,14 @@ public class Caverna {
     }
 
     /**
+     * coordenadas: coordenadas de uma sala.
+     * Retorna o componente primário da sala.
+     */
+    public Componente getComponentePrimario(int coordenadas[]) {
+        return this.salas[coordenadas[0]][coordenadas[1]].getComponentePrimario();
+    }
+
+    /**
      * Imprime a caverna na tela com o eixo de coordenadas.
      */
     public void apresentarCaverna(){
