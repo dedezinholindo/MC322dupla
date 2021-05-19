@@ -3,10 +3,10 @@ package mc322.lab06;
 public class Heroi extends Componente {
     
     private String nome;
-    private int flechasDisponiveis; //deixar em aberto caso expanda o jogo e queira mais flechas
-    private boolean flechaEquipada; //se equipar na proxima sala ele perde uma flecha automaticamente
+    private int flechasDisponiveis;
+    private boolean flechaEquipada;
     private int ourosColetados;
-    private int vidas; //qtd de vidas que ele possui (perde se cair no buraco ou Wumpus matar)
+    private int vidas;
     private Caverna caverna;
 
     /**

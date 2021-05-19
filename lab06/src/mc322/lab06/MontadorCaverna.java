@@ -10,6 +10,11 @@ public class MontadorCaverna {
     private static int MAX_QUANT_OURO = 1;
     private static int[] COORD_INI_HEROI = {1, 1};
 
+    /**
+     * path: path para um arquivo com os componentes de uma caverna a montar.
+     * Retorna uma caverna com os componentes do arquivo, ou null, caso seja uma
+     * caverna inválida.
+     */
     public Caverna montarCaverna(String path) {
         Caverna caverna = new Caverna();
         Componente componentes[] = lerComponentes(path);
@@ -17,17 +22,19 @@ public class MontadorCaverna {
             return null;
         }
         for (int i = 0; i < componentes.length; i++) {
-            componentes[i].setCaverna(caverna);
+            if (!componentes[i].setCaverna(caverna)) {
+                return null;
+            }
         }
         return caverna;
     }
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna um vetor com os componentes, ou null, caso seja uma caverna
-     * inválida.
+     * Retorna um vetor com os componentes do arquivo, ou null, caso seja uma
+     * caverna inválida.
      */
-    public Componente[] lerComponentes(String path) {
+    private Componente[] lerComponentes(String path) {
         CSVHandling csv = new CSVHandling();
         String infoComponentes[][];
         Componente componentes[];
@@ -77,10 +84,4 @@ public class MontadorCaverna {
         }
         return componentes;
     }
-
-    public Caverna getCaverna() {
-        return caverna;
-    }
-
-    public void criarFedor(){}
 }
