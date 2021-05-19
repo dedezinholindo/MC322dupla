@@ -14,7 +14,7 @@ public class Caverna {
         this.salas = new Sala[MAX_LINHAS_CAVERNA][MAX_COLUNAS_CAVERNA];
         for (int i = 0; i < MAX_LINHAS_CAVERNA; i++) {
             for (int j = 0; j < MAX_COLUNAS_CAVERNA; j++) {
-                Sala[i][j] = new Sala();
+                this.salas[i][j] = new Sala();
             }
         }
     }

@@ -7,6 +7,7 @@ public class ControleMundoWumpus {
     private static int INCREMENTO_MOVIMENTO = -15;
     private static int INCREMENTO_USO_FLECHA = -100;
     private static int INCREMENTO_VITORIA_WUMPUS = 500;
+    private static int[] COORD_INI_HEROI = {0, 0};
 
     private int pontuacao;
     private Heroi heroi;
@@ -52,7 +53,7 @@ public class ControleMundoWumpus {
         if (morte) {
             apresentarJogo();
             System.out.println("Você morreu!");
-        } else if (this.heroi.getOurosColetados() > 0 && Posicao.compararCoordenadas(heroi.getCoordenadas(), {0,0})) { //aqui o heroi tem q estar na posicao (1,1) com o ouro
+        } else if (this.heroi.getOurosColetados() > 0 && Posicao.compararCoordenadas(heroi.getCoordenadas(), COORD_INI_HEROI)) { // sai pela sala inicial.
             incrementarPontuacao(INCREMENTO_SAIDA_COM_OURO);
             apresentarJogo();
             System.out.println("Você venceu!:)))");

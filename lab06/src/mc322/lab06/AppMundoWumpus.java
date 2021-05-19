@@ -8,7 +8,7 @@ public class AppMundoWumpus {
         Heroi heroi = MontadorCaverna.montarCaverna(args[0]);
         if (heroi == null) {
             System.out.println("Arquivo inválido!");
-            return; //sai do programa
+            return; // sai do programa.
         }
         Scanner teclado = new Scanner(System.in);
         String nomeUsuario;
@@ -16,7 +16,7 @@ public class AppMundoWumpus {
         String comando;
         System.out.print("Nome do player: ");
         nomeUsuario = teclado.nextLine();
-        controle = new ControleMundoWumpus(Heroi, nomeUsuario);
+        controle = new ControleMundoWumpus(heroi, nomeUsuario);
         controle.apresentarJogo(); // estado inicial.
         comando = teclado.nextLine();
         while (true) { // sairá do programa com System.exit(0).
