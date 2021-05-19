@@ -2,16 +2,13 @@ package mc322.lab06;
 
 public class Buraco extends Componente {
 
-    private int numComponentesAssociados;
-    private Componente componentesAssociados[];
-
     /**
      * coordenadas: coordenadas do buraco.
      * Inicializa um buraco.
      */
-    Buraco(int[] coordenadas) { //adicionar componentes associados nas salas!!!!!!!!!!!!!!!!!!!!! (isso é feito ao conectar a caverna)
+    Buraco(int[] coordenadas) {
         super('B', coordenadas);
-        int coordenadasComponentesAssociados[][] = Posicao.criarComponentesAssociados(this.componentesAssociados);
+        int coordenadasComponentesAssociados[][] = coordenadasComponentesAssociados();
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
                 this.componentesAssociados[i] = new Brisa('b', coordenadasComponentesAssociados[i]);

@@ -6,6 +6,8 @@ public abstract class Componente {
                             'B' para buraco, 'O' para ouro, 'f' para fedor e
                             'b'  para brisa. */
     protected int coordenadas[]; /* linha e coluna. */
+    protected int numComponentesAssociados;
+    protected Componente componentesAssociados[];
     protected Caverna caverna;
     
     /**
@@ -16,6 +18,8 @@ public abstract class Componente {
     Componente(char tipo, int[] coordenadas) {
         this.tipo = tipo;
         this.coordenadas = coordenadas;
+        this.numComponentesAssociados = 0;
+        this.componentesAssociados = null;
         this.caverna = null;
     }
 
@@ -62,5 +66,17 @@ public abstract class Componente {
      */
     public boolean isPrimario() {
         return (this.tipo == 'W' || this.tipo == 'B' || this.tipo == 'O');
+    }
+
+    /**
+     * Retorna as coordenadas dos componentes associados.
+     */
+    protected int[][] coordenadasComponentesAssociados(){
+        int coordenadasComponentesAssociados[][] = new int[4][2];
+        coordenadasComponentesAssociados[0] = new int[] {this.coordenadas[0] + 1, this.coordenadas[1]};
+        coordenadasComponentesAssociados[1] = new int[] {this.coordenadas[0], this.coordenadas[1] + 1};
+        coordenadasComponentesAssociados[2] = new int[] {this.coordenadas[0] - 1, this.coordenadas[1]};
+        coordenadasComponentesAssociados[3] = new int[] {this.coordenadas[0], this.coordenadas[1] - 1};
+        return coordenadasComponentesAssociados;
     }
 }

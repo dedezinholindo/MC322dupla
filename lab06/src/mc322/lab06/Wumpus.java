@@ -2,16 +2,13 @@ package mc322.lab06;
 
 public class Wumpus extends Componente {
 
-    private int numComponentesAssociados;
-    private Componente componentesAssociados[];
-
     /**
      * coordenadas: coordenadas do wumpus.
      * Inicializa um wumpus.
      */
     Wumpus(int[] coordenadas) {
         super('W', coordenadas);
-        int coordenadasComponentesAssociados[][] = Posicao.criarComponentesAssociados(this.componentesAssociados);
+        int coordenadasComponentesAssociados[][] = coordenadasComponentesAssociados();
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
                 this.componentesAssociados[i] = new Fedor('f', coordenadasComponentesAssociados[i]);
@@ -32,7 +29,7 @@ public class Wumpus extends Componente {
     /**
      * caverna: caverna.
      * Retorna true, caso adicione o componente e os seus componentes
-     * associados à caverna e associe-a ao componente, e false, caso o  ????????????????????????????????????????/ (caso não consiga adicionar)
+     * associados à caverna e associe-a ao componente, e false, caso o
      * contrário.
      */
     public boolean setCaverna(Caverna caverna) {
