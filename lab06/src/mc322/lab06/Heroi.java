@@ -1,108 +1,81 @@
 package mc322.lab06;
 
 public class Heroi extends Componente {
-    
-    private String nome;
+
+    private static int MAX_FLECHAS_INICIAIS = 1;
+
     private int flechasDisponiveis;
     private boolean flechaEquipada;
     private int ourosColetados;
-    private int vidas;
-    private Caverna caverna;
 
     /**
-     * coordenadas: coordenadas do heroi.
-     * Inicializa um heroi.
+     * coordenadas: coordenadas do herói.
+     * Inicializa um herói.
      */
-    Heroi(int[] coordenadas, int flechasDisponiveis, String nome, int vidas, Caverna caverna) {
+    Heroi(int[] coordenadas) {
         super('P', coordenadas);
-        this.nome = nome;
-        this.flechasDisponiveis = flechasDisponiveis;
+        this.flechasDisponiveis = MAX_FLECHAS_INICIAIS;
         this.flechaEquipada = false;
         this.ourosColetados = 0;
-        this.vidas = vidas;
-        this.caverna = caverna;
+        this.caverna = null;
     }
 
     /**
-     * heroi: heroi na forma ["i:j", "t"], em que i é a linha, j, a
-     * coluna e t o tipo do heroi, 'P'.
-     * Inicializa um heroi.
+     * heroi: herói na forma ["i:j", "t"], em que i é a linha, j, a
+     * coluna e t, o tipo do herói, 'P'.
+     * Inicializa um herói.
      */
     Heroi(String[] heroi) {
         this(Posicao.coordenadasParaInt(heroi[0]));
     }
 
-    //heroi avisa a caverna quais movimentos foram feitos
-
-    public String getNome() {
-        return nome;
-    }
-
+    /**
+     * Retorna a quantidade de flechas disponíveis.
+     */
     public int getFlechasDisponiveis() {
         return flechasDisponiveis;
     }
 
+    /**
+     * Retorna o estado de equipação de flecha.
+     */
     public boolean isFlechaEquipada() {
         return flechaEquipada;
     }
 
+    /**
+     * Retorna a quantidade de ouros coletados.
+     */
     public int getOurosColetados() {
         return ourosColetados;
     }
 
-    public int getVidas() {
-        return vidas;
+    /**
+     * Equipa uma flecha.
+     */
+    public void equiparFlecha() {
+        if (this.flechasDisponiveis > 0) {
+            this.flechasDisponiveis--;
+            this.flechaEquipada = true;
+        }
     }
 
-    public Caverna getCaverna() {
-        return caverna;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setFlechasDisponiveis(int flechasDisponiveis) {
-        this.flechasDisponiveis = flechasDisponiveis;
-    }
-
-    public void setFlechaEquipada(boolean flechaEquipada) {
-        this.flechaEquipada = flechaEquipada;
-    }
-
-    public void setOurosColetados(int ourosColetados) {
-        this.ourosColetados = ourosColetados;
-    }
-
-    public void setVidas(int vidas) {
-        this.vidas = vidas;
-    }
-
-    public void setCaverna(Caverna caverna) {
-        this.caverna = caverna;
-    }
-
-    //assume que o movimento eh permitido
-    public void movimentar(int[] destino){
-        this.coordenadas = destino;
-    }
-
-    public void equiparFlecha(){
-        this.flechasDisponiveis -= 1;
-        this.flechaEquipada = true;
+    /**
+     * coordenadasDestino: coordenadas do destino do herói.
+     * Retorna true, caso movimente o herói para o destino, e false, caso o
+     * contrário.
+     */
+    public boolean movimentar(int[] coordenadasDestino){
+        if (Posicao.valida(coordenadasDestino)) {
+            this.caverna.retirarComponente(this);
+            this.coordenadas = coordenadasDestino;
+            this.caverna.adicionarComponente(this);
+            return true;
+        }
+        return false;
     }
 
     public void coletarOuro(){
         this.ourosColetados += 1;
-    }
-    public void apresentarHeroi(){
-        System.out.println("|| Player: " + this.getNome());
-        //lembrar de apresentar pontuacao!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        System.out.println("|| Lifes: " + this.getVidas());
-        System.out.println("|| Arrows: " + this.getFlechasDisponiveis());
-        if (this.getFlechasDisponiveis() != 0){
-            System.out.println("||   Equiped: " + (this.isFlechaEquipada()? "yes" : "no"));
-        }
-        System.out.println("|| Colected Golds: " + this.getOurosColetados());
     }
 }

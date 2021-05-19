@@ -1,17 +1,22 @@
 package mc322.lab06;
 
 public class ControleMundoWumpus {
+    
     private int pontuacao;
     private Heroi heroi;
-    //realiza o movimento do heroi
-    //1-verificar tecla digitada
-    //2-verificar se o jogador nao esta indo para fora dos limites
+    private String nomeUsuario;
 
-    //coordenadas iniciais do heroi (1,1)
-    ControleMundoWumpus(int[] coordenadas, int flechasDisponiveis, String nome, int vidas){
+    /**
+     * heroi: herói do jogo.
+     * nomeUsuario: nome do usuário.
+     * Inicializa um controle para o jogo Mundo de Wumpus.
+     */
+    ControleMundoWumpus(Heroi heroi, String nomeUsuario){
         this.pontuacao = 0;
-        this.heroi = new Heroi(coordenadas, flechasDisponiveis, nome, vidas);
+        this.heroi = heroi;
+        this.nomeUsuario = nomeUsuario;
     }
+
     /**
      * Retorna a pontuação atual do jogo.
      */
@@ -19,15 +24,11 @@ public class ControleMundoWumpus {
         return pontuacao;
     }
 
-    public Heroi getHeroi() {
-        return heroi;
-    }
-    public void setPontuacao(int pontuacao) {
-        this.pontuacao = pontuacao;
-    }
-
-    public void setHeroi(Heroi heroi){
-        this.heroi = heroi;
+    /**
+     * Retorna o nome do usuário.
+     */
+    public String getNomeUsuario() {
+        return this.nomeUsuario;
     }
 
     //retorna pra sala a nova posicao do heroi

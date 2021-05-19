@@ -12,7 +12,7 @@ public class Brisa extends Componente {
 
     /**
      * brisa: brisa na forma ["i:j", "t"], em que i é a linha, j, a
-     * coluna e t o tipo da brisa, 'b'.
+     * coluna e t, o tipo da brisa, 'b'.
      * Inicializa uma brisa.
      */
     Brisa(String[] brisa) {

@@ -12,7 +12,7 @@ public class Fedor extends Componente {
 
     /**
      * fedor: fedor na forma ["i:j", "t"], em que i é a linha, j, a
-     * coluna e t o tipo do fedor, 'f'.
+     * coluna e t, o tipo do fedor, 'f'.
      * Inicializa um fedor.
      */
     Fedor(String[] fedor) {

@@ -1,9 +1,11 @@
   package mc322.lab06;
 
 public abstract class Componente {
+
     protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,
-                            'B' para buraco, 'O' para ouro, 'f' para fedor e 'b'  para brisa. */
-    protected int coordenadas[]; //indice 0 eh a linha e 1 a coluna
+                            'B' para buraco, 'O' para ouro, 'f' para fedor e
+                            'b'  para brisa. */
+    protected int coordenadas[]; /* linha e coluna. */
     protected Caverna caverna;
     
     /**
@@ -19,7 +21,7 @@ public abstract class Componente {
 
     /**
      * componente: componente na forma ["i:j", "t"], em que i é a linha, j, a
-     * coluna e t o tipo do componente, sendo '_' o tipo vazio.
+     * coluna e t, o tipo do componente, sendo '_' o indicador do tipo vazio.
      * Inicializa um componente.
      */
     Componente(String[] componente) {
@@ -42,17 +44,10 @@ public abstract class Componente {
     }
 
     /**
-     * coordenadas: coordenadas para o componente.
-     * Altera as coordenadas do componente.
-     */
-    public void setCoordenadas(int[] coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
-    /**
-     * caverna: caverna a conectar ao componente.
+     * caverna: caverna.
      * Retorna true, caso adicione o componente e os seus componentes
-     * associados à caverna, e false, caso o contrário.
+     * associados à caverna e associe-a ao componente, e false, caso o
+     * contrário.
      */
     public boolean setCaverna(Caverna caverna) {
         if (caverna.adicionarComponente(this)) {

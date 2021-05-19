@@ -1,35 +1,56 @@
 package mc322.lab06;
 
 public class Caverna {
-    private int qtdOuros; //se heroi ourosColetados = qtdOuros ele pode sair
+
+    private static int MAX_LINHAS_CAVERNA = 4;
+    private static int MAX_COLUNAS_CAVERNA = 4;
+
     private Sala[][] salas;
 
+    /**
+     * Inicializa uma caverna.
+     */
     Caverna() {
-        this.salas = new Sala[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
+        this.salas = new Sala[MAX_LINHAS_CAVERNA][MAX_COLUNAS_CAVERNA];
+        for (int i = 0; i < MAX_LINHAS_CAVERNA; i++) {
+            for (int j = 0; j < MAX_COLUNAS_CAVERNA; j++) {
                 Sala[i][j] = new Sala();
             }
         }
     }
 
-    public void setSalas(Sala[] salas) {
-        this.salas = salas;
-    }
-
+    /**
+     * Imprime a caverna na tela com o eixo de coordenadas.
+     */
     public void apresentarCaverna(){
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < MAX_LINHAS_CAVERNA; i++) {
             System.out.print((i + 1) + " ");
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < MAX_COLUNAS_CAVERNA; j++) {
                 System.out.print(this.salas[i][j].tipoComponentePriotario() + " ");
             }
             System.out.println();
         }
-        System.out.println(" 1 2 3 4");
+        for (int j = 0; j < MAX_COLUNAS_CAVERNA; j++) {
+            System.out.println(" " + (j + 1));
+        }
     }
 
+    /**
+     * componente: componente a adicionar à caverna.
+     * Retorna true, caso adicione o componente à caverna, e false, caso o
+     * contrário.
+     */
     public boolean adicionarComponente(Componente componente) {
         int coordenadas[] = componente.getCoordenadas();
         return this.salas[coordenadas[0]][coordenadas[1]].adicionarComponente(componente);
+    }
+
+    /**
+     * componente: componente.
+     * Retira o componente da caverna.
+     */
+    public void retirarComponente(Componente componente) {
+        int coordenadas[] = componente.getCoordenadas();
+        this.salas[coordenadas[0]][coordenadas[1]].retirarComponente(componente);
     }
 }

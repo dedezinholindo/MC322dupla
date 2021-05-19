@@ -5,20 +5,20 @@ public class Sala {
     private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
     
     private boolean revelada; // indica se a sala está revelada.
+    private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
+    private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
     private int numComponentesNaoPrimarios; // número de componentes não primários presentes na sala.
     private Componente componentesNaoPrimarios[]; // componentes não primários presentes na sala.
-    private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
-    private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
 
     /**
      * Inicializa um sala.
      */
     Sala() {
         this.revelada = false;
+        this.heroi = null;
+        this.componentePrimario = null;
         this.numComponentesNaoPrimarios = 0;
         this.componentesNaoPrimarios = new Componente[MAX_NUM_COMPONENTES_NAO_PRIMARIOS];
-        this.componentePrimario = null;
-        this.heroi = null;
     }
 
     /**
@@ -26,6 +26,20 @@ public class Sala {
      */
     public boolean isRevelada() {
         return this.revelada;
+    }
+
+    /**
+     * Retorna o herói da sala.
+     */
+    public Componente getHeroi() {
+        return this.heroi;
+    }
+
+    /**
+     * Retorna o componente primário da sala.
+     */
+    public Componente getComponentePrimario() {
+        return this.componentePrimario;
     }
 
     /**
@@ -43,20 +57,6 @@ public class Sala {
     }
 
     /**
-     * Retorna o componente primário da sala.
-     */
-    public Componente getComponentePrimario() {
-        return this.componentePrimario;
-    }
-
-    /**
-     * Retorna o herói da sala.
-     */
-    public Componente getHeroi() {
-        return this.heroi;
-    }
-
-    /**
      * Revela a sala.
      */
     public void revelar() {
@@ -64,20 +64,19 @@ public class Sala {
     }
 
     /**
-     * componenteNaoPrimario: componente não primário a adicionar à sala.
-     * Adiciona o componente não primário à sala.
+     * heroi: herói.
+     * Adiciona o herói à sala.
      */
-    public void adicionarComponenteNaoPrimario(Componente componenteNaoPrimario) {
-        this.componentesNaoPrimarios[this.numComponentesNaoPrimarios] = componenteNaoPrimario;
-        this.numComponentesNaoPrimarios++;
+    public void adicionarHeroi(Componente heroi) {
+        this.heroi = heroi;
     }
 
     /**
-     * componentePrimario: componente primário a adicionar à sala.
+     * componentePrimario: componente primário.
      * Retorna true se adiciona o componente primário à sala, e false, caso o
      * contrário.
      */
-    public boolean setComponentePrimario(Componente componentePrimario) {
+    public boolean adicionarComponentePrimario(Componente componentePrimario) {
         if (this.componentePrimario == null) {
             this.componentePrimario = componentePrimario;
             return true;
@@ -86,33 +85,48 @@ public class Sala {
     }
 
     /**
-     * heroi: herói a adicionar à sala.
-     * Adiciona o herói à sala.
+     * componenteNaoPrimario: componente não primário.
+     * Adiciona o componente não primário à sala.
      */
-    public void setHeroi(Componente heroi) {
-        this.heroi = heroi;
+    public void adicionarComponenteNaoPrimario(Componente componenteNaoPrimario) {
+        this.componentesNaoPrimarios[this.numComponentesNaoPrimarios] = componenteNaoPrimario;
+        this.numComponentesNaoPrimarios++;
     }
 
     /**
-     * componente: componente a adicionar à sala (qualquer tipo).
+     * componente: componente (qualquer tipo).
      * Retorna true, caso consiga adicionar o componente à sala, e false, caso
      * contrário.
      */
     public boolean adicionarComponente(Componente componente) {
         if (componente.getTipo() == 'P') {
-            setHeroi(componente);
+            adicionarHeroi(componente);
             return true;
-        } else if (!componente.isPrimario()) {
+        } else if (componente.isPrimario()) {
+            return adicionarComponentePrimario(componente);
+        } else {
             adicionarComponenteNaoPrimario(componente);
             return true;
-        } else {
-            return setComponentePrimario(componente);
         }
     }
 
     /**
-     * tipo: tipo do componente não primário a retirar da sala.
-     * Retira um componente não primário da sala.
+     * Retira o herói da sala.
+     */
+    public void retirarHeroi() {
+        this.heroi = null;
+    }
+
+    /**
+     * Retira o componente primário da sala.
+     */
+    public void retirarComponentePrimario() {
+        this.componentePrimario = null;
+    }
+
+    /**
+     * tipo: tipo de componente não primário.
+     * Retira um componente não primário do dado tipo da sala.
      */
     public void retirarComponenteNaoPrimario(char tipo) {
         for (int i = 0; i < this.numComponentesNaoPrimarios; i++) {
@@ -126,21 +140,22 @@ public class Sala {
     }
 
     /**
-     * Retira o componente primário da sala.
+     * componente: componente.
+     * Retira o componente da sala.
      */
-    public void retirarComponentePrimario() {
-        this.componentePrimario = null;
+    public void retirarComponente(Componente componente) {
+        if (componente.getTipo() == 'P') {
+            retirarHeroi();
+        } else if (componente.isPrimario()) {
+            retirarComponentePrimario();
+        } else {
+            retirarComponenteNaoPrimario(componente.getTipo());
+        }
     }
 
     /**
-     * Retira o herói da sala.
-     */
-    public void retirarHeroi() {
-        this.heroi = null;
-    }
-
-    /**
-     * Retorna o tipo do componente prioritário da sala.
+     * Retorna o tipo do componente prioritário da sala, ou '-' caso não esteja
+     * revelada.
      */
     public char tipoComponentePriotario() {
         if (!this.revelada) { // sala não revelada.

@@ -12,7 +12,7 @@ public class Ouro extends Componente {
 
     /**
      * ouro: ouro na forma ["i:j", "t"], em que i é a linha, j, a
-     * coluna e t o tipo do ouro, 'O'.
+     * coluna e t, o tipo do ouro, 'O'.
      * Inicializa um ouro.
      */
     Ouro(String[] ouro) {
