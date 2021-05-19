@@ -128,52 +128,52 @@ public class ControleMundoWumpus {
      * comando: comando de ação.
      * Executa o comando, caso possível.
      */
-    public void executarComando(char comando) {
+    public void executarComando(String comando) {
         if (isJogoFinalizado()) {
             apresentarJogo();
             System.out.println("O jogo já foi finalizado!");
             return;
         }
         switch (comando) {
-            case 'w':
+            case "w":
                 if (movimentarCima()) {
                     incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala acima!");
                 }
                 break;
-            case 's':
+            case "s":
                 if (movimentarBaixo()) {
                     incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala abaixo!");
                 }
                 break;
-            case 'd':
+            case "d":
                 if (movimentarDireita()) {
                     incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à direita!");
                 }
                 break;
-            case 'a':
+            case "a":
                 if (movimentarEsquerda()) {
                     incrementarPontuacao(INCREMENTO_MOVIMENTO);
                 } else {
                     System.out.println("Não há sala à esquerda!");
                 }
                 break;
-            case 'k':
+            case "k":
                 if (!this.heroi.equiparFlecha()) {
                     System.out.println("Não há flechas disponíveis!");
                 }
                 break;
-            case 'c':
+            case "c":
                 if (!this.heroi.coletarOuro()) {
                     System.out.println("Não há ouro nesta sala!");
                 }
                 break;
-            case 'q':
+            case "q":
                 finalizarJogo(false);
                 break;
             default:

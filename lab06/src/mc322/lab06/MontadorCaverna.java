@@ -12,21 +12,25 @@ public class MontadorCaverna {
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna uma caverna com os componentes do arquivo, ou null, caso seja uma
-     * caverna inválida.
+     * Retorna um herói em uma caverna com os componentes do arquivo, ou null,
+     * caso seja uma caverna inválida.
      */
-    public Caverna montarCaverna(String path) {
+    public Heroi montarCaverna(String path) {
         Caverna caverna = new Caverna();
         Componente componentes[] = lerComponentes(path);
         if (componentes == null) {
             return null;
         }
+        Heroi heroi;
         for (int i = 0; i < componentes.length; i++) {
             if (!componentes[i].setCaverna(caverna)) {
                 return null;
             }
+            if (componentes[i].getTipo() == 'P') { // caso o arquivo dê as informações fora de ordem.
+                heroi = componentes[i];
+            }
         }
-        return caverna;
+        return heroi;
     }
 
     /**
@@ -48,22 +52,22 @@ public class MontadorCaverna {
         for (int i = 0; i < componentes.length; i++) {
             switch (infoComponentes[i][1]) {
             case '_':
-                componentes[i] = Componente(infoComponentes[i]);
+                componentes[i] = new Componente(infoComponentes[i]);
                 break;
             case 'B':
-                componentes[i] = Buraco(infoComponentes[i]);
+                componentes[i] = new Buraco(infoComponentes[i]);
                 quantBuraco++;
                 break;
             case 'W':
-                componentes[i] = Wumpus(infoComponentes[i]);
+                componentes[i] = new Wumpus(infoComponentes[i]);
                 quantWumpus++;
                 break;
             case 'O':
-                componentes[i] = Ouro(infoComponentes[i]);
+                componentes[i] = new Ouro(infoComponentes[i]);
                 quantOuro++;
                 break;
             case 'P':
-                componentes[i] = Heroi(infoComponentes[i]);
+                componentes[i] = new Heroi(infoComponentes[i]);
                 if (!Posicao.compararCoordenadas(COORD_INI_HEROI, componentes[i].getCoordenadas)) {
                     return null;
                 }
