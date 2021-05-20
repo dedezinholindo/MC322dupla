@@ -9,6 +9,7 @@ public class ControleMundoWumpus {
     private static int INCREMENTO_VITORIA_WUMPUS = 500;
     private static int[] COORD_INI_HEROI = {0, 0};
 
+    private boolean jogoFinalizado;
     private int pontuacao;
     private Heroi heroi;
     private String nomeUsuario;
@@ -19,9 +20,17 @@ public class ControleMundoWumpus {
      * Inicializa um controle para o jogo Mundo de Wumpus.
      */
     ControleMundoWumpus(Heroi heroi, String nomeUsuario) {
+        this.jogoFinalizado = false;
         this.pontuacao = 0;
         this.heroi = heroi;
         this.nomeUsuario = nomeUsuario;
+    }
+
+    /**
+     * Retorna o estado de finalização do jogo.
+     */
+    public boolean isJogoFinalizado() {
+        return this.jogoFinalizado;
     }
 
     /**
@@ -39,35 +48,31 @@ public class ControleMundoWumpus {
     }
 
     /**
-     * incremento: incremento para a pontuação, pode ser positivo ou negativo.
-     * Incrementa a pontuação do jogo.
-     */
-    public void incrementarPontuacao(int incremento) {
-        this.pontuacao += incremento;
-    }
-
-    /**
      * Finaliza o jogo.
      */
-    public void finalizarJogo(boolean morte) {
+    private void finalizarJogo(boolean morte) {
         if (morte) {
-            apresentarJogo();
             System.out.println("Você morreu!");
         } else if (this.heroi.getOurosColetados() > 0 && Posicao.compararCoordenadas(heroi.getCoordenadas(), COORD_INI_HEROI)) { // sai pela sala inicial.
             incrementarPontuacao(INCREMENTO_SAIDA_COM_OURO);
-            apresentarJogo();
             System.out.println("Você venceu!:)))");
         } else {
-            apresentarJogo();
             System.out.println("Volte sempre!");
         }
-        System.exit(0);
+        this.jogoFinalizado = true;
+    }
+    /**
+     * incremento: incremento para a pontuação, pode ser positivo ou negativo.
+     * Incrementa a pontuação do jogo.
+     */
+    private void incrementarPontuacao(int incremento) {
+        this.pontuacao += incremento;
     }
 
     /**
      * Movimenta o herói para cima.
      */
-    public boolean movimentarCima() {
+    private boolean movimentarCima() {
         int destino[] = heroi.getCoordenadas();
         destino[0]--;
         if (Posicao.valida(destino)) {
@@ -80,7 +85,7 @@ public class ControleMundoWumpus {
     /**
      * Movimenta o herói para baixo.
      */
-    public boolean movimentarBaixo() {
+    private boolean movimentarBaixo() {
         int destino[] = heroi.getCoordenadas();
         destino[0]++;
         if (Posicao.valida(destino)) {
@@ -93,7 +98,7 @@ public class ControleMundoWumpus {
     /**
      * Movimenta o herói para a direita.
      */
-    public boolean movimentarDireita() {
+    private boolean movimentarDireita() {
         int destino[] = heroi.getCoordenadas();
         destino[1]++;
         if (Posicao.valida(destino)) {
@@ -106,7 +111,7 @@ public class ControleMundoWumpus {
     /**
      * Movimenta o herói para a esquerda.
      */
-    public boolean movimentarEsquerda() {
+    private boolean movimentarEsquerda() {
         int destino[] = heroi.getCoordenadas();
         destino[1]--;
         if (Posicao.valida(destino)) {
@@ -121,6 +126,9 @@ public class ControleMundoWumpus {
      * Executa o comando, caso possível.
      */
     public void executarComando(String comando) {
+        if (this.jogoFinalizado) {
+            return;
+        }
         boolean flechaEquipadaAgora = false;
         switch (comando) {
             case "w":
@@ -156,6 +164,7 @@ public class ControleMundoWumpus {
                     System.out.println("Não há flechas disponíveis!");
                 } else {
                     flechaEquipadaAgora = true;
+                    System.out.println("Equipou uma flecha.");
                 }
                 break;
             case "c":
@@ -186,7 +195,7 @@ public class ControleMundoWumpus {
             System.out.println("Há ouro nessa sala! $)");
         }
         if (!flechaEquipadaAgora) {
-            if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
+            if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre no comando seguinte ao equipamento.
                 this.heroi.dispararFlecha(); 
                 incrementarPontuacao(INCREMENTO_USO_FLECHA);
             }
@@ -194,7 +203,7 @@ public class ControleMundoWumpus {
     }
 
     /**
-     * Apresenta o jogo: caverna, nome do usuário e pontuação.
+     * Apresenta o jogo: caverna, nome do usuário, pontuação e informações do herói.
      */
     public void apresentarJogo() {
         Caverna caverna = this.heroi.getCaverna();
@@ -202,6 +211,7 @@ public class ControleMundoWumpus {
         System.out.println("");
         System.out.println("Player: " + this.nomeUsuario);
         System.out.println("Score: " + this.pontuacao);
-        this.heroi.informacoesHeroi();
+        System.out.println("Flechas Disponíveis: " + this.heroi.getFlechasDisponiveis());
+        System.out.println("Ouros coletados: " + this.heroi.getOurosColetados());
     }
 }

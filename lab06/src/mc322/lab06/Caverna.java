@@ -28,22 +28,41 @@ public class Caverna {
     }
 
     /**
-     * componente: componente a adicionar à caverna.
-     * Retorna true, caso adicione o componente à caverna, e false, caso o
-     * contrário.
+     * componente: componente.
+     * Retorna true, caso adicione o componente e os seus componentes
+     * associados à caverna, e false, caso o contrário.
      */
     public boolean adicionarComponente(Componente componente) {
         int coordenadas[] = componente.getCoordenadas();
-        return this.salas[coordenadas[0]][coordenadas[1]].adicionarComponente(componente);
+        if (!this.salas[coordenadas[0]][coordenadas[1]].adicionarComponente(componente)) {
+            return false;
+        }
+        int numComponentesAssociados = componente.getNumComponentesAssociados();
+        if (numComponentesAssociados > 0) {
+            Componente componentesAssociados[] = componente.getComponentesAssociados();
+            for (int i = 0; i < numComponentesAssociados; i++) {
+                if (!adicionarComponente(componentesAssociados[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
      * componente: componente.
-     * Retira o componente da caverna.
+     * Retira o componente e os seus componentes associados da caverna.
      */
     public void retirarComponente(Componente componente) {
         int coordenadas[] = componente.getCoordenadas();
+        int numComponentesAssociados = componente.getNumComponentesAssociados();
         this.salas[coordenadas[0]][coordenadas[1]].retirarComponente(componente);
+        if (numComponentesAssociados > 0) {
+            Componente componentesAssociados[] = componente.getComponentesAssociados();
+            for (int i = 0; i < numComponentesAssociados; i++) {
+                retirarComponente(componentesAssociados[i]);
+            }
+        }
     }
 
     /**

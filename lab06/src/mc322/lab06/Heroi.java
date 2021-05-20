@@ -64,7 +64,7 @@ public class Heroi extends Componente {
     }
 
     /**
-     * Desequipa a flecha.
+     * Desequipa (dispara) a flecha.
      */
     public void dispararFlecha() {
         this.flechaEquipada = false;
@@ -74,16 +74,14 @@ public class Heroi extends Componente {
      * Retorna true, caso o herói colete o ouro, e false, caso não haja ouro.
      */
     public boolean coletarOuro() {
-        Componente ouro = this.caverna.getComponentePrimario(this.coordenadas);
-        if (ouro == null) {
+        Componente componentePrimario = this.caverna.getComponentePrimario(this.coordenadas);
+        if ((componentePrimario == null) || (componentePrimario.getTipo() != 'O')) {
             return false;
-        }
-        if (ouro.getTipo() == 'O') {
-            this.caverna.retirarComponente(ouro);
+        } else {
+            this.caverna.retirarComponente(componentePrimario);
             this.ourosColetados++;
             return true;
         }
-        return false;
     }
 
     /**
@@ -94,15 +92,18 @@ public class Heroi extends Componente {
         if (this.flechaEquipada) {
             Random gerador = new Random();
             vitoria = gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
+            if (vitoria) {
+                this.caverna.retirarComponente(this.caverna.getComponentePrimario(this.coordenadas)); // retira o Wumpus da caverna.
+            }
         }
         return vitoria;
     }
 
     /**
-     * Retorna o código do estado atualizado do herói de acordo com a sala em
-     * que está: 0, caso ocorra nada, 1, caso derrote um Wumpus; 2, caso seja
-     * derrotado por um Wumpus; 3, caso caia em um buraco; e 4, caso encontre
-     * ouro.
+     * Retorna o código do estado atualizado do herói de acordo com o que
+     * ocorre na sala em que está: 0, caso ocorra nada, 1, caso derrote um
+     * Wumpus; 2, caso seja derrotado por um Wumpus; 3, caso caia em um buraco;
+     * e 4, caso encontre ouro.
      */
     public int atualizarEstado() {
         Componente componentePrimario = this.caverna.getComponentePrimario(this.coordenadas);
@@ -112,7 +113,7 @@ public class Heroi extends Componente {
             return (batalharWumpus()) ? 1 : 2;
         } else if (componentePrimario.getTipo() == 'B') {
             return 3;
-        } else { // ouro.
+        } else { // há ouro na sala.
             return 4;
         }
     }
@@ -125,10 +126,5 @@ public class Heroi extends Componente {
         this.caverna.retirarComponente(this);
         this.coordenadas = coordenadasDestino;
         this.caverna.adicionarComponente(this);
-    }
-
-    public void informacoesHeroi(){
-        System.out.println("Flechas: " + this.flechasDisponiveis);
-        System.out.println("Ouros coletados: " + this.ourosColetados);
     }
 }

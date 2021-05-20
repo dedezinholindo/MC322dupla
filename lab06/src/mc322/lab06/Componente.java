@@ -1,4 +1,4 @@
-  package mc322.lab06;
+package mc322.lab06;
 
 public abstract class Componente {
 
@@ -6,7 +6,8 @@ public abstract class Componente {
                             'O' para ouro, 'f' para fedor e 'b'  para brisa. */
     protected int coordenadas[]; /* linha e coluna. */
     protected int numComponentesAssociados;
-    protected Componente componentesAssociados[];
+    protected Componente componentesAssociados[]; /* fedor, para Wumpus e
+                                                        brisa, para buraco */
     protected Caverna caverna;
     
     /**
@@ -60,6 +61,13 @@ public abstract class Componente {
     }
 
     /**
+     * Retorna a caverna do componente.
+     */
+    public Caverna getCaverna() {
+        return this.caverna;
+    }
+
+    /**
      * caverna: caverna.
      * Retorna true, caso adicione o componente e os seus componentes
      * associados à caverna e associe-a ao componente, e false, caso o
@@ -74,17 +82,11 @@ public abstract class Componente {
     }
 
     /**
-     * Retorna a caverna do componente.
-     */
-    public Caverna getCaverna() {
-        return this.caverna;
-    }
-
-    /**
-     * Retorna true, caso o componente seja primário, e false, caso contrário.
+     * Retorna true, caso o componente seja primário e não herói, e false, caso
+     * o contrário.
      */
     public boolean isPrimario() {
-        return (this.tipo == 'W' || this.tipo == 'B' || this.tipo == 'O');
+        return ((this.tipo == 'W') || (this.tipo == 'B') || (this.tipo == 'O'));
     }
 
     /**

@@ -2,6 +2,8 @@ package mc322.lab06;
 
 public class MontadorCaverna {
 
+    private static int MAX_LINHAS_CAVERNA = 4;
+    private static int MAX_COLUNAS_CAVERNA = 4;
     private static int MIN_QUANT_BURACO = 2;
     private static int MAX_QUANT_BURACO = 3;
     private static int MIN_QUANT_WUMPUS = 1;
@@ -12,12 +14,13 @@ public class MontadorCaverna {
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna um herói em uma caverna com os componentes do arquivo, ou null,
-     * caso seja uma caverna inválida.
+     * Retorna um herói em uma caverna especificada no arquivo, ou null, caso
+     * seja uma caverna inválida.
      */
     public static Heroi montarCaverna(String path) {
         String infoComponentes[][] = lerComponentes(path);
-        if (infoComponentes == null) {
+        if ((infoComponentes == null) ||
+                (infoComponentes.length != MAX_LINHAS_CAVERNA * MAX_COLUNAS_CAVERNA)) {
             return null;
         }
         Caverna caverna = new Caverna();
@@ -79,9 +82,8 @@ public class MontadorCaverna {
     }
 
     /**
-     * path: path para um arquivo com os componentes de uma caverna a montar.
-     * Retorna um vetor com os componentes do arquivo, ou null, caso seja uma
-     * caverna inválida.
+     * path: path para um arquivo com os componentes de uma caverna.
+     * Retorna um vetor com a informação dos componentes do arquivo.
      */
     private static String[][] lerComponentes(String path) {
         CSVHandling csv = new CSVHandling();

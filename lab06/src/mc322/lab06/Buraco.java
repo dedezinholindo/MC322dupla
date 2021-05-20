@@ -26,20 +26,4 @@ public class Buraco extends Componente {
     Buraco(String[] buraco) {
         this(Posicao.coordenadasParaInt(buraco[0]));
     }
-
-    /**
-     * caverna: caverna.
-     * Retorna true, caso adicione o componente e os seus componentes
-     * associados à caverna e associe-a ao componente, e false, caso o
-     * contrário.
-     */
-    public boolean setCaverna(Caverna caverna) {
-        if (caverna.adicionarComponente(this)) {
-            for (int i = 0; i < this.numComponentesAssociados; i++) {
-                    this.componentesAssociados[i].setCaverna(caverna);
-            }
-            return true;
-        }
-        return false;
-    }
 }

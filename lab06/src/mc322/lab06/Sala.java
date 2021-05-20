@@ -4,11 +4,11 @@ public class Sala {
 
     private static int MAX_NUM_COMPONENTES_NAO_PRIMARIOS = 4; // máximo de 3 brisas e 1 fedor.
     
-    private boolean revelada; // indica se a sala está revelada.
-    private Componente heroi; //contém o herói caso esteja presente, ou null, caso o contrário.
-    private Componente componentePrimario; //contém um componente primário e não herói caso presente, ou null, caso o contrário.
-    private int numComponentesNaoPrimarios; // número de componentes não primários presentes na sala.
-    private Componente componentesNaoPrimarios[]; // componentes não primários presentes na sala.
+    private boolean revelada;
+    private Componente heroi; // contém o herói, caso presente, ou null, caso o contrário.
+    private Componente componentePrimario; // contém um componente primário e não herói, caso presente, ou null, caso o contrário.
+    private int numComponentesNaoPrimarios;
+    private Componente componentesNaoPrimarios[];
 
     /**
      * Inicializa um sala.
@@ -36,7 +36,7 @@ public class Sala {
     }
 
     /**
-     * Retorna o componente primário da sala.
+     * Retorna o componente primário e não herói da sala.
      */
     public Componente getComponentePrimario() {
         return this.componentePrimario;
@@ -45,21 +45,21 @@ public class Sala {
     /**
      * Retorna o número de componentes não primários da sala.
      */
-    public int getNumComponentes() {
+    public int getNumComponentesNaoPrimarios() {
         return this.numComponentesNaoPrimarios;
     }
 
     /**
      * Retorna os componentes não primários da sala.
      */
-    public Componente[] getComponentes() {
+    public Componente[] getComponentesNaoPrimarios() {
         return this.componentesNaoPrimarios.clone();
     }
 
     /**
      * Revela a sala.
      */
-    public void revelar() {
+    private void revelar() {
         this.revelada = true;
     }
 
@@ -67,16 +67,16 @@ public class Sala {
      * heroi: herói.
      * Adiciona o herói à sala.
      */
-    public void adicionarHeroi(Componente heroi) {
+    private void adicionarHeroi(Componente heroi) {
         this.heroi = heroi;
     }
 
     /**
-     * componentePrimario: componente primário.
-     * Retorna true se adiciona o componente primário à sala, e false, caso o
-     * contrário.
+     * componentePrimario: componente primário e não herói.
+     * Retorna true, caso adicione o componente primário à sala, e false, caso
+     * o contrário.
      */
-    public boolean adicionarComponentePrimario(Componente componentePrimario) {
+    private boolean adicionarComponentePrimario(Componente componentePrimario) {
         if (this.componentePrimario == null) {
             this.componentePrimario = componentePrimario;
             return true;
@@ -88,7 +88,7 @@ public class Sala {
      * componenteNaoPrimario: componente não primário.
      * Adiciona o componente não primário à sala.
      */
-    public void adicionarComponenteNaoPrimario(Componente componenteNaoPrimario) {
+    private void adicionarComponenteNaoPrimario(Componente componenteNaoPrimario) {
         this.componentesNaoPrimarios[this.numComponentesNaoPrimarios] = componenteNaoPrimario;
         this.numComponentesNaoPrimarios++;
     }
@@ -96,7 +96,7 @@ public class Sala {
     /**
      * componente: componente (qualquer tipo).
      * Retorna true, caso consiga adicionar o componente à sala, e false, caso
-     * contrário.
+     * o contrário.
      */
     public boolean adicionarComponente(Componente componente) {
         if (componente.getTipo() == 'P') {
@@ -114,14 +114,14 @@ public class Sala {
     /**
      * Retira o herói da sala.
      */
-    public void retirarHeroi() {
+    private void retirarHeroi() {
         this.heroi = null;
     }
 
     /**
-     * Retira o componente primário da sala.
+     * Retira o componente primário e não herói da sala.
      */
-    public void retirarComponentePrimario() {
+    private void retirarComponentePrimario() {
         this.componentePrimario = null;
     }
 
@@ -129,27 +129,22 @@ public class Sala {
      * tipo: tipo de componente não primário.
      * Retira um componente não primário do dado tipo da sala.
      */
-    public void retirarComponenteNaoPrimario(char tipo) {
+    private void retirarComponenteNaoPrimario(char tipo) {
         for (int i = 0; i < this.numComponentesNaoPrimarios; i++) {
             if (this.componentesNaoPrimarios[i].getTipo() == tipo) {
                 this.componentesNaoPrimarios[i] = null;
-                this.componentesNaoPrimarios[i] = this.componentesNaoPrimarios[this.numComponentesNaoPrimarios];
-                this.componentesNaoPrimarios[this.numComponentesNaoPrimarios] = null;
+                this.componentesNaoPrimarios[i] = this.componentesNaoPrimarios[this.numComponentesNaoPrimarios - 1];
+                this.componentesNaoPrimarios[this.numComponentesNaoPrimarios - 1] = null;
                 this.numComponentesNaoPrimarios--;
             }
         }
     }
 
     /**
-     * componente: componente.
+     * componente: componente (qualquer tipo).
      * Retira o componente da sala.
      */
     public void retirarComponente(Componente componente) {
-        if (componente.getNumComponentesAssociados() > 0) {
-            for (int i = 0; i < componente.getNumComponentesAssociados(); i++) {
-                retirarComponente(componente.getComponentesAssociados()[i]);
-            }
-        }
         if (componente.getTipo() == 'P') {
             retirarHeroi();
         } else if (componente.isPrimario()) {
@@ -175,7 +170,7 @@ public class Sala {
         }
         if (this.numComponentesNaoPrimarios > 0) { // há componente não primário.
             char tipoComponentePriotario = this.componentesNaoPrimarios[0].getTipo();
-            if (tipoComponentePriotario != 'f') {
+            if (tipoComponentePriotario != 'f') { // tipo não primário prioritário.
                 for (int i = 1; i < this.numComponentesNaoPrimarios; i++) {
                     if (this.componentesNaoPrimarios[i].getTipo() == 'f') {
                         tipoComponentePriotario = 'f';
