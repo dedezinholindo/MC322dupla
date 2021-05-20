@@ -74,18 +74,3 @@ componente = new Ouro(infoComponentes[i]);
 ```
 
 O trecho acima demonstra o polimorfismo sendo explorado a fim de forma que a adição de novas classes herdeiras de Componente possam ser adicionadas com facilidade.
-
-## Expansão
-
-```Java
-public abstract class Componente {
-
-    protected char tipo;
-    protected int coordenadas[];
-    protected int numComponentesAssociados;
-    protected Componente componentesAssociados[];
-    protected Caverna caverna;
-    ...
-```
-
-Para expandir adicionando outros componentes, também seria um processo bem fácil, uma vez que todos os componentes são filhos da Classe componentes e só teria que acrescentar um novo *char* para seu tipo de componente novo e implementar sua devida classe herdando a classe Componente.
