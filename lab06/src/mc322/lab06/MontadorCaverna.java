@@ -8,45 +8,56 @@ public class MontadorCaverna {
     private static int MAX_QUANT_WUMPUS = 1;
     private static int MIN_QUANT_OURO = 1;
     private static int MAX_QUANT_OURO = 1;
-    private int[] COORD_INI_HEROI = {0, 0};
+    private static int[] COORD_INI_HEROI = {0, 0};
 
     /**
      * path: path para um arquivo com os componentes de uma caverna a montar.
      * Retorna um herói em uma caverna com os componentes do arquivo, ou null,
      * caso seja uma caverna inválida.
      */
-    public Heroi montarCaverna(String path) {
-        Caverna caverna = new Caverna();
+    public static Heroi montarCaverna(String path) {
         String infoComponentes[][] = lerComponentes(path);
         if (infoComponentes == null) {
             return null;
         }
-        Heroi heroi;
-        Componente componentes[] = new Componente[infoComponentes.length - 1];
+        Caverna caverna = new Caverna();
+        Heroi heroi = null;
+        Componente componente;
         int quantBuraco = 0;
         int quantWumpus = 0;
         int quantOuro = 0;
         int quantHeroi = 0;
-        for (int i = 0; i < componentes.length; i++) {
+        for (int i = 0; i < infoComponentes.length; i++) {
             switch (infoComponentes[i][1]) {
-            case '_':
-                componentes[i] = new Componente(infoComponentes[i]);
+            case "_":
                 break;
-            case 'B':
-                componentes[i] = new Buraco(infoComponentes[i]);
+            case "B":
+                componente = new Buraco(infoComponentes[i]);
+                if (!componente.setCaverna(caverna)) {
+                    return null;
+                }
                 quantBuraco++;
                 break;
-            case 'W':
-                componentes[i] = new Wumpus(infoComponentes[i]);
+            case "W":
+                componente = new Wumpus(infoComponentes[i]);
+                if (!componente.setCaverna(caverna)) {
+                    return null;
+                }
                 quantWumpus++;
                 break;
-            case 'O':
-                componentes[i] = new Ouro(infoComponentes[i]);
+            case "O":
+                componente = new Ouro(infoComponentes[i]);
+                if (!componente.setCaverna(caverna)) {
+                    return null;
+                }
                 quantOuro++;
                 break;
-            case 'P':
+            case "P":
                 heroi = new Heroi(infoComponentes[i]);
                 if (!Posicao.compararCoordenadas(COORD_INI_HEROI, heroi.getCoordenadas())) {
+                    return null;
+                }
+                if (!heroi.setCaverna(caverna)) {
                     return null;
                 }
                 quantHeroi++;
@@ -64,14 +75,6 @@ public class MontadorCaverna {
                 (quantHeroi != 1)) {
             return null;
         }
-        if (!heroi.setCaverna(caverna)) {
-            return null;
-        };
-        for (int i = 0; i < componentes.length; i++) {
-            if (!componentes[i].setCaverna(caverna)) {
-                return null;
-            }
-        }
         return heroi;
     }
 
@@ -80,7 +83,7 @@ public class MontadorCaverna {
      * Retorna um vetor com os componentes do arquivo, ou null, caso seja uma
      * caverna inválida.
      */
-    private String[][] lerComponentes(String path) {
+    private static String[][] lerComponentes(String path) {
         CSVHandling csv = new CSVHandling();
         String infoComponentes[][];
         csv.setDataSource(path);

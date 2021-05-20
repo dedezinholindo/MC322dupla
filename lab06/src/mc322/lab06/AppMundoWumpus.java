@@ -20,6 +20,7 @@ public class AppMundoWumpus {
         controle.apresentarJogo(); // estado inicial.
         comando = teclado.nextLine();
         while (true) { // sairá do programa com System.exit(0).
+            System.out.println("");
             controle.executarComando(comando);
             controle.apresentarJogo();
             comando = teclado.nextLine();

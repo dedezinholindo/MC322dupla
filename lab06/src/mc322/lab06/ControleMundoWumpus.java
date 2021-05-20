@@ -121,6 +121,7 @@ public class ControleMundoWumpus {
      * Executa o comando, caso possível.
      */
     public void executarComando(String comando) {
+        boolean flechaEquipadaAgora = false;
         switch (comando) {
             case "w":
                 if (movimentarCima()) {
@@ -153,6 +154,8 @@ public class ControleMundoWumpus {
             case "k":
                 if (!this.heroi.equiparFlecha()) {
                     System.out.println("Não há flechas disponíveis!");
+                } else {
+                    flechaEquipadaAgora = true;
                 }
                 break;
             case "c":
@@ -182,9 +185,11 @@ public class ControleMundoWumpus {
         } else if (estado == 4) {
             System.out.println("Há ouro nessa sala! $)");
         }
-        if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
-            this.heroi.dispararFlecha(); 
-            incrementarPontuacao(INCREMENTO_USO_FLECHA);
+        if (!flechaEquipadaAgora) {
+            if (this.heroi.isFlechaEquipada()) { // dispara uma flecha sempre que equipada.
+                this.heroi.dispararFlecha(); 
+                incrementarPontuacao(INCREMENTO_USO_FLECHA);
+            }
         }
     }
 

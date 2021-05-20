@@ -12,7 +12,7 @@ public class Wumpus extends Componente {
         this.componentesAssociados = new Componente[4];
         for (int i = 0; i < 4; i++) {
             if (Posicao.valida(coordenadasComponentesAssociados[i])) {
-                this.componentesAssociados[i] = new Fedor(coordenadasComponentesAssociados[i]);
+                this.componentesAssociados[this.numComponentesAssociados] = new Fedor(coordenadasComponentesAssociados[i]);
                 this.numComponentesAssociados++;
             }
         }
@@ -41,15 +41,5 @@ public class Wumpus extends Componente {
             return true;
         }
         return false;
-    }
-
-    /**
-     * Retira o componente e seus componentes associados da caverna.
-     */
-    public void retirar() {
-        this.caverna.retirarComponente(this);
-        for (int i = 0; i < this.numComponentesAssociados; i++) {
-            this.caverna.retirarComponente(this.componentesAssociados[i]);
-        }
     }
 }

@@ -2,9 +2,8 @@
 
 public abstract class Componente {
 
-    protected char tipo; /* '#' para vazio, 'P' para herói, 'W' para Wumpus,
-                            'B' para buraco, 'O' para ouro, 'f' para fedor e
-                            'b'  para brisa. */
+    protected char tipo; /* 'P' para herói, 'W' para Wumpus, 'B' para buraco,
+                            'O' para ouro, 'f' para fedor e 'b'  para brisa. */
     protected int coordenadas[]; /* linha e coluna. */
     protected int numComponentesAssociados;
     protected Componente componentesAssociados[];
@@ -29,22 +28,35 @@ public abstract class Componente {
      * Inicializa um componente.
      */
     Componente(String[] componente) {
-        this((componente[1].charAt(0) == '_') ? '#' : componente[1].charAt(0),
-               Posicao.coordenadasParaInt(componente[0]));
+        this(componente[1].charAt(0), Posicao.coordenadasParaInt(componente[0]));
     }
 
     /**
      * Retorna o tipo do componente.
      */
     public char getTipo() {
-        return tipo;
+        return this.tipo;
     }
 
     /**
      * Retorna as coordenadas do componente.
      */
     public int[] getCoordenadas() {
-        return coordenadas;
+        return this.coordenadas.clone();
+    }
+
+    /**
+     * Retorna o número de componentes associados.
+     */
+    public int getNumComponentesAssociados() {
+        return this.numComponentesAssociados;
+    }
+
+    /**
+     * Retorna os componentes associados.
+     */
+    public Componente[] getComponentesAssociados() {
+        return (this.componentesAssociados == null) ? null : this.componentesAssociados.clone();
     }
 
     /**

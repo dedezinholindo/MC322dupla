@@ -53,7 +53,7 @@ public class Sala {
      * Retorna os componentes não primários da sala.
      */
     public Componente[] getComponentes() {
-        return this.componentesNaoPrimarios;
+        return this.componentesNaoPrimarios.clone();
     }
 
     /**
@@ -101,6 +101,7 @@ public class Sala {
     public boolean adicionarComponente(Componente componente) {
         if (componente.getTipo() == 'P') {
             adicionarHeroi(componente);
+            revelar();
             return true;
         } else if (componente.isPrimario()) {
             return adicionarComponentePrimario(componente);
@@ -144,6 +145,11 @@ public class Sala {
      * Retira o componente da sala.
      */
     public void retirarComponente(Componente componente) {
+        if (componente.getNumComponentesAssociados() > 0) {
+            for (int i = 0; i < componente.getNumComponentesAssociados(); i++) {
+                retirarComponente(componente.getComponentesAssociados()[i]);
+            }
+        }
         if (componente.getTipo() == 'P') {
             retirarHeroi();
         } else if (componente.isPrimario()) {

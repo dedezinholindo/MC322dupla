@@ -43,7 +43,7 @@ public class Posicao {
      * Retorna true, caso ambas coordenadas sejam iguais, e false, caso o
      * contrário.
      */
-    public boolean compararCoordenadas(int[] coordenadasA, int[] coordenadasB) {
+    public static boolean compararCoordenadas(int[] coordenadasA, int[] coordenadasB) {
         return (coordenadasA[0] == coordenadasB[0] && coordenadasA[1] == coordenadasB[1]);
     }
 }

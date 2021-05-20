@@ -34,21 +34,21 @@ public class Heroi extends Componente {
      * Retorna a quantidade de flechas disponíveis.
      */
     public int getFlechasDisponiveis() {
-        return flechasDisponiveis;
+        return this.flechasDisponiveis;
     }
 
     /**
      * Retorna o estado de equipação de flecha.
      */
     public boolean isFlechaEquipada() {
-        return flechaEquipada;
+        return this.flechaEquipada;
     }
 
     /**
      * Retorna a quantidade de ouros coletados.
      */
     public int getOurosColetados() {
-        return ourosColetados;
+        return this.ourosColetados;
     }
 
     /**
@@ -90,12 +90,12 @@ public class Heroi extends Componente {
      * Retorna true, caso o herói vença o Wumpus, e false, caso o contrário.
      */
     public boolean batalharWumpus() {
+        boolean vitoria = false;
         if (this.flechaEquipada) {
             Random gerador = new Random();
-            return gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
-        } else {
-            return false;
+            vitoria = gerador.nextBoolean(); // probabilidade de 50% de vencer o Wumpus.
         }
+        return vitoria;
     }
 
     /**
