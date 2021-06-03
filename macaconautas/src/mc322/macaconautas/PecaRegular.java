@@ -1,4 +1,4 @@
-package macaconautas;
+package mc322.macaconautas;
 
 public class PecaRegular extends Componente{
 

@@ -1,4 +1,4 @@
-package macaconautas;
+package mc322.macaconautas;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -12,6 +12,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+
 
 
 public class AppMacaconautas extends Canvas implements Runnable, KeyListener {

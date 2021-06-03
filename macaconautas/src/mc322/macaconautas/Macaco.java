@@ -1,4 +1,4 @@
-package macaconautas;
+package mc322.macaconautas;
 
 import java.awt.Color;
 import java.awt.Graphics;
