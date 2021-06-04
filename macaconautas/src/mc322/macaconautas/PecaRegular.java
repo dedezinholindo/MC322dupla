@@ -6,5 +6,4 @@ public class PecaRegular extends Componente{
 		super(x, y, width, height);
 	}
 	
-
 }
