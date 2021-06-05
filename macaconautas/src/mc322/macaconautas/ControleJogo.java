@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -20,9 +21,10 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	private boolean isRunning;
 	private Thread thread;
 	private JFrame f;
-	public Macaco macaco;
+	private Macaco macaco;
 	
-	public Espaco espaco;
+	private Espaco espaco;
+	public static ArrayList <Laser> lasers;
 	
 	public ControleJogo() {
 		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
@@ -30,6 +32,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		this.addKeyListener(this);
 		macaco = new Macaco(15, 0, MACACO_WIDTH, MACACO_HEIGHT);
 		espaco = new Espaco();
+		lasers = new ArrayList<Laser>();
 	}
 	
 	public void initFrame() {
@@ -47,6 +50,9 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		macaco.tick();
 		espaco.tick();
 		checarColisoes();
+		for (int i = 0; i < lasers.size(); i++) {
+			lasers.get(i).tick();
+		}
 		
 		}
 	
@@ -78,6 +84,9 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		g.fillRect(0,0, AppMacaconautas.WIDTH*AppMacaconautas.SCALE,AppMacaconautas.HEIGHT*AppMacaconautas.SCALE); //aparece um retangulo na tela (x,y,largura,altura)
 		macaco.render(g);
 		espaco.render(g);
+		for (int i = 0; i < lasers.size(); i++) {
+			lasers.get(i).render(g);
+		}
 		bs.show(); //mostra o grafico
 	}
 	

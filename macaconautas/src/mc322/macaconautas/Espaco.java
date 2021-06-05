@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class Espaco {
 	
-	private ArrayList<Obstaculo> obstaculos; //usar get 
+	private ArrayList<Obstaculo> obstaculos; 
 	private ArrayList<Alien> aliens;
-	private int obstaculosPorSessao; //usar get
+	private int obstaculosPorSessao; 
 	private int aliensPorSessao;
 	private final static int BIGBOSS = 3000;
 

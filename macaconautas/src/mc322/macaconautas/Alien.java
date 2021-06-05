@@ -8,35 +8,45 @@ public class Alien extends PecaRegular{
 	
 	public final static int ALIEN_WIDTH = 10;
 	public final static int ALIEN_HEIGHT = 10;
-	public int tiros;
-	private ArrayList <Laser> lasers;
-	private int l;
+	private int deslocamento;
+	private boolean shoot;
 	
 	public Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		lasers = new ArrayList<Laser>();
 		speed = 1;
 		isVisible = true; 
-		l = 0;
+		shoot = true; //comecar atirando a a partir do momento que chegar na tela
+		deslocamento = 0;
 		
 	}
 	
+	public boolean isShoot() {
+		return shoot;
+	}
+
+	public void setShoot(boolean shoot) {
+		this.shoot = shoot;
+	}
+
 	public void tick() {
 		x -= speed;
-		this.lasers.add(new Laser(x, y));
-		lasers.get(l).tick();
-	}
-	
-	public ArrayList<Laser> getLasers() {
-		return lasers;
+		if (x <= AppMacaconautas.WIDTH * AppMacaconautas.SCALE) {
+			deslocamento += speed;
+			if (deslocamento == 50) {
+				shoot = true;
+				deslocamento = 0;
+			}
+			if (shoot) {
+				Laser laser = new Laser((int)this.getX(),(int) this.getY());
+				ControleJogo.lasers.add(laser);
+			}
+			shoot = false;
+		}
 	}
 
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(x, y, width, height);
-		lasers.get(l).render(g);
-		l++; 
-		System.out.println(l);
 	}
 	
 }

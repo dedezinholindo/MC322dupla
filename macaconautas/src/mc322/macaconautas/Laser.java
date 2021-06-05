@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Laser extends PecaRegular {
 
-	public final static int LASER_WIDTH = 5;
+	public final static int LASER_WIDTH = 8;
 	public final static int LASER_HEIGHT = 5;
 	
 	public Laser(int x, int y) {
