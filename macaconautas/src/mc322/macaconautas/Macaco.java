@@ -9,8 +9,8 @@ public class Macaco extends Componente {
 	private boolean up;
 	private final static int gravidade = 1;
 	
-	public Macaco (int x, int y) {
-		super(x, y, 32, 32); //os dois ultimos sao largura e altura
+	public Macaco (int x, int y, int width, int height) {
+		super(x, y, width, height); //os dois ultimos sao largura e altura
 		speed = 4;
 	}
 
@@ -22,7 +22,7 @@ public class Macaco extends Componente {
 		if (up) {
 			y -= speed;
 		}
-		else {
+		else { 
 			y += gravidade;
 		}
 		if (y + this.height > AppMacaconautas.HEIGHT * AppMacaconautas.SCALE) {

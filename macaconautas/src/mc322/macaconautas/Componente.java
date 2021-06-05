@@ -9,6 +9,7 @@ public class Componente extends Rectangle implements IComponente{
 	
 	public Componente(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		isVisible = true;
 	}
 	
 	@Override
