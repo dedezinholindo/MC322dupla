@@ -4,11 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+//lembrar de apagar ele quando ele sair da tela
 public class Alien extends PecaRegular{
 	
 	public final static int ALIEN_WIDTH = 10;
 	public final static int ALIEN_HEIGHT = 10;
-	private int deslocamento;
+	private int deslocamento; //a cada X de deslocamento ele vai disparar
 	private boolean shoot;
 	
 	public Alien(int x, int y, int width, int height) {
@@ -18,14 +19,6 @@ public class Alien extends PecaRegular{
 		shoot = true; //comecar atirando a a partir do momento que chegar na tela
 		deslocamento = 0;
 		
-	}
-	
-	public boolean isShoot() {
-		return shoot;
-	}
-
-	public void setShoot(boolean shoot) {
-		this.shoot = shoot;
 	}
 
 	public void tick() {
@@ -38,7 +31,9 @@ public class Alien extends PecaRegular{
 			}
 			if (shoot) {
 				Laser laser = new Laser((int)this.getX(),(int) this.getY());
-				ControleJogo.lasers.add(laser);
+				ArrayList <Laser> l = ControleJogo.getLasers(); 
+				l.add(laser);
+				ControleJogo.setLasers(l);
 			}
 			shoot = false;
 		}

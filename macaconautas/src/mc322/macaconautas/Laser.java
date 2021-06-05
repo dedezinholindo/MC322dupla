@@ -16,6 +16,12 @@ public class Laser extends PecaRegular {
 	
 	public void tick() {
 		x -= speed;
+		if (x < 0) { //sumir quando sir da tela
+			ArrayList <Laser> l = ControleJogo.getLasers();
+			l.remove(this);
+			ControleJogo.setLasers(l);
+			return; // sempre retornar quando elimina o proprio objeto 
+		}
 	}
 	
 

@@ -22,9 +22,8 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	private Thread thread;
 	private JFrame f;
 	private Macaco macaco;
-	
 	private Espaco espaco;
-	public static ArrayList <Laser> lasers;
+	private static ArrayList <Laser> lasers; 
 	
 	public ControleJogo() {
 		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
@@ -43,6 +42,14 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		f.setLocationRelativeTo(null); //centro (tem que estar depois do pack)
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fechar quando clicar no x e parar de vez
 		f.setVisible(true); //deixar ele visivel
+	}
+	
+	public static ArrayList<Laser> getLasers() {
+		return lasers;
+	}
+
+	public static void setLasers(ArrayList<Laser> lasers) {
+		ControleJogo.lasers = lasers;
 	}
 
 	public void tick() {
@@ -92,17 +99,45 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	
 	public void checarColisaoObstaculos() {
 		Rectangle formaMacaco = macaco.getBounds();
+		Rectangle formaObstaculo = null;
+		for (int i = 0; i < espaco.getObstaculosNaSessao(); i++) {
+			formaObstaculo = espaco.getObstaculos().get(i).getBounds();
+			if (formaMacaco.intersects(formaObstaculo)) {
+				//criar set visivel (atributo na interface alem de speed)
+				System.exit(0);
+			}
+		}
+	}
+	
+	public void checarColisaoAlien() {
+		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaAlien = null;
-		for (int i = 0; i < espaco.getObstaculosPorSessao(); i++) {
-			formaAlien = espaco.getObstaculos().get(i).getBounds();
+		for (int i = 0; i < espaco.getAliensNaSessao(); i++) {
+			formaAlien = espaco.getAliens().get(i).getBounds();
 			if (formaMacaco.intersects(formaAlien)) {
 				//criar set visivel (atributo na interface alem de speed)
 				System.exit(0);
 			}
 		}
 	}
-	public void checarColisoes() { //usar get 
+	
+	public void checarColisaoLaser() {
+		Rectangle formaMacaco = macaco.getBounds();
+		Rectangle formaLaser = null;
+		for (int i = 0; i < lasers.size(); i++) {
+			formaLaser = lasers.get(i).getBounds();
+			if (formaMacaco.intersects(formaLaser)) {
+				//criar set visivel (atributo na interface alem de speed)
+				System.exit(0);
+			}
+		}
+	}
+	
+	
+	public void checarColisoes() {   
 		checarColisaoObstaculos();
+		checarColisaoAlien();
+		checarColisaoLaser();       
 	}
 	
 	
