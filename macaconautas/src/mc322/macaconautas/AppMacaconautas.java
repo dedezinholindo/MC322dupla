@@ -20,6 +20,7 @@ public class AppMacaconautas extends Canvas {
 	public final static int WIDTH = 160;
 	public final static int HEIGHT = 120;
 	public final static int SCALE = 4;
+	private char appState; //"L" para Loja, "M" para menu inicial e "J" para jogo
 	
 	
 	public AppMacaconautas() {

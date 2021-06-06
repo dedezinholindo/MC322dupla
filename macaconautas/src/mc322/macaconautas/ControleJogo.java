@@ -18,6 +18,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	
 	public final static int MACACO_WIDTH = 32;
 	public final static int MACACO_HEIGHT = 32;
+	private char jogoState; //N para normal e P para pausado (uso do pause)
 	private boolean isRunning;
 	private Thread thread;
 	private JFrame f;
