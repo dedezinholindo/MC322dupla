@@ -20,12 +20,13 @@ public class AppMacaconautas extends Canvas {
 	public final static int WIDTH = 160;
 	public final static int HEIGHT = 120;
 	public final static int SCALE = 4;
-	private char appState; //"L" para Loja, "M" para menu inicial e "J" para jogo
+	private static char appState; //"L" para Loja, "M" para menu inicial e "J" para jogo
 	
 	
 	public AppMacaconautas() {
 		this.setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE)); //setar size do JFrame
 		initFrame();
+		appState = 'M';
 	}
 	
 	public void initFrame() {
@@ -38,13 +39,18 @@ public class AppMacaconautas extends Canvas {
 		f.setVisible(true); //deixar ele visivel
 	}
 	
-	public static void main(String[] args) throws InterruptedException {		
+	public static void main(String[] args) throws InterruptedException {	//throws para sleep	
 		AppMacaconautas app = new AppMacaconautas();
-		Thread.currentThread().sleep(10); //necessário para sumir a outra janela
-		
-		//se o estado do jogo for J....
-		ControleJogo jogo = new ControleJogo();
-		jogo.start();
+		appState = 'J'; //TESTE PARA INICIAR O JOGO
+		Thread.currentThread().sleep(10); //necessário para sumir a outra janela - instantaneo ele trava
+		if (appState == 'M') {
+			//abrir menu
+		} else if (appState == 'L') {
+			//abrir loja
+		} else {
+			ControleJogo jogo = new ControleJogo();
+			jogo.start();
+		}
 	}
 
 	

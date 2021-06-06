@@ -22,7 +22,7 @@ public class Espaco {
 			Random aleatorioDois = new Random();
 			int valory = aleatorioDois.nextInt((AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - 16) + 1);
 			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
-			obstaculos.add(new Obstaculo(valorx, valory, 16,16));
+			obstaculos.add(new Obstaculo(valorx, valory, Obstaculo.OBSTACULO_WIDTH,Obstaculo.OBSTACULO_HEIGHT));
 		}
 		aliens = new ArrayList<Alien>();
 		for (int i = 0; i < aliensNaSessao; i ++) {

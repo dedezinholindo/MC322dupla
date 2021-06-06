@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class Obstaculo extends PecaRegular{
 	
+	public final static int OBSTACULO_WIDTH = 16;
+	public final static int OBSTACULO_HEIGHT = 16;
+	
 	public Obstaculo(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speed = 1;

@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +19,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	
 	public final static int MACACO_WIDTH = 32;
 	public final static int MACACO_HEIGHT = 32;
-	private char jogoState; //N para normal e P para pausado (uso do pause)
+	private char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
 	private boolean isRunning;
 	private Thread thread;
 	private JFrame f;
@@ -33,10 +34,11 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		macaco = new Macaco(15, 0, MACACO_WIDTH, MACACO_HEIGHT);
 		espaco = new Espaco();
 		lasers = new ArrayList<Laser>();
+		jogoState = 'N';
 	}
 	
 	private void apagarVisibilidadeJanelas() {
-		AppMacaconautas.f.setVisible(false); //fica aberto o tempo todo? 
+		AppMacaconautas.f.setVisible(false); //fica aberto o tempo todo? Ou será excluido? ver sobrecarga 
 		//loja
 		//menu
 	}
@@ -63,14 +65,25 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 
 	public void tick() {
 		//Update the AppMacaconautas
-		macaco.tick();
-		espaco.tick();
-		checarColisoes();
-		for (int i = 0; i < lasers.size(); i++) {
-			lasers.get(i).tick();
+		switch(jogoState) {
+			case 'N':
+				macaco.tick();
+				espaco.tick();
+				checarColisoes();
+				for (int i = 0; i < lasers.size(); i++) {
+					lasers.get(i).tick();
+				}
+				break;
+				
+			case 'P':
+				//pause
+				break;
+				
+			case 'O':
+				//stop();
+				break;
 		}
-		
-		}
+	}
 	
 	public synchronized void start() { //synchronized para evitar que a thread use/mude o mesmo recurso ao mesmo tempo
 		this.isRunning = true;
@@ -103,50 +116,61 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		for (int i = 0; i < lasers.size(); i++) {
 			lasers.get(i).render(g);
 		}
+		if (jogoState == 'O') {
+			//TELA GAME OVER
+			Graphics2D g2 = (Graphics2D) g;
+			g2.setColor(new Color(0,0,0,100)); //transparencia
+			g2.fillRect(0, 0, AppMacaconautas.WIDTH * AppMacaconautas.SCALE, AppMacaconautas.HEIGHT * AppMacaconautas.SCALE);
+			
+			//FRASE GAME OVER
+			g.setFont(new Font("arial", Font.BOLD, 30));
+			g.setColor(Color.WHITE);
+			g.drawString("GAME OVER", AppMacaconautas.WIDTH * AppMacaconautas.SCALE/2 - 120 , AppMacaconautas.HEIGHT * AppMacaconautas.SCALE/2 - 100);
+		}
 		bs.show(); //mostra o grafico
 	}
 	
-	public void checarColisaoObstaculos() {
+	public boolean checarColisaoObstaculos() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaObstaculo = null;
 		for (int i = 0; i < espaco.getObstaculosNaSessao(); i++) {
 			formaObstaculo = espaco.getObstaculos().get(i).getBounds();
 			if (formaMacaco.intersects(formaObstaculo)) {
-				//criar set visivel (atributo na interface alem de speed)
-				System.exit(0);
+				return true;
 			}
 		}
+		return false;
 	}
 	
-	public void checarColisaoAlien() {
+	public boolean checarColisaoAlien() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaAlien = null;
 		for (int i = 0; i < espaco.getAliensNaSessao(); i++) {
 			formaAlien = espaco.getAliens().get(i).getBounds();
 			if (formaMacaco.intersects(formaAlien)) {
-				//criar set visivel (atributo na interface alem de speed)
-				System.exit(0);
+				return true;
 			}
 		}
+		return false;
 	}
 	
-	public void checarColisaoLaser() {
+	public boolean checarColisaoLaser() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaLaser = null;
 		for (int i = 0; i < lasers.size(); i++) {
 			formaLaser = lasers.get(i).getBounds();
 			if (formaMacaco.intersects(formaLaser)) {
-				//criar set visivel (atributo na interface alem de speed)
-				System.exit(0);
+				return true;
 			}
 		}
+		return false;
 	}
 	
 	
-	public void checarColisoes() {   
-		checarColisaoObstaculos();
-		checarColisaoAlien();
-		checarColisaoLaser();       
+	public void checarColisoes() { 
+		if(checarColisaoObstaculos() || checarColisaoAlien() || checarColisaoLaser()){
+			jogoState = 'O';
+		}
 	}
 	
 	
