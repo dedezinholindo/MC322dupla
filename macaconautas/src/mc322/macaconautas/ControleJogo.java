@@ -35,6 +35,12 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		lasers = new ArrayList<Laser>();
 	}
 	
+	private void apagarVisibilidadeJanelas() {
+		AppMacaconautas.f.setVisible(false); //fica aberto o tempo todo? 
+		//loja
+		//menu
+	}
+	
 	public void initFrame() {
 		f = new JFrame("MACACONAUTAS"); //titulo do jogo ou setTitle()
 		f.add(this); //adicionar o que criamos para ficar visível
@@ -43,7 +49,9 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		f.setLocationRelativeTo(null); //centro (tem que estar depois do pack)
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fechar quando clicar no x e parar de vez
 		f.setVisible(true); //deixar ele visivel
+		apagarVisibilidadeJanelas();
 	}
+	
 	
 	public static ArrayList<Laser> getLasers() {
 		return lasers;
