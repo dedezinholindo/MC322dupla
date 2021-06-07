@@ -188,8 +188,9 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		int b = checarColisaoBanana();
 		if (b != -1) {
 			ArrayList<Banana> bananas = espaco.getBananas();
-			bananas.get(b).isVisible = false;
-			espaco.setBananas(bananas);
+			bananas.remove(b);
+			espaco.setBananas(bananas); //remocao da banana
+			espaco.setBananasNaSessao(espaco.getBananasNaSessao() - 1);
 		}
 	}
 	
