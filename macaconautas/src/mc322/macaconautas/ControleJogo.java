@@ -108,14 +108,17 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 			this.createBufferStrategy(3); //sequencia de buffers que colocamos na tela para otimizar a renderizacao (entre 2 ou 3)	
 			return; //"break"
 		}
+		//fundo
 		Graphics g = bs.getDrawGraphics(); //podemos gerar imagem, retangulo, string
 		g.setColor(Color.PINK);
 		g.fillRect(0,0, AppMacaconautas.WIDTH*AppMacaconautas.SCALE,AppMacaconautas.HEIGHT*AppMacaconautas.SCALE); //aparece um retangulo na tela (x,y,largura,altura)
+		
 		macaco.render(g);
 		espaco.render(g);
 		for (int i = 0; i < lasers.size(); i++) {
 			lasers.get(i).render(g);
 		}
+		
 		if (jogoState == 'O') {
 			//TELA GAME OVER
 			Graphics2D g2 = (Graphics2D) g;
@@ -130,7 +133,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		bs.show(); //mostra o grafico
 	}
 	
-	public boolean checarColisaoObstaculos() {
+	private boolean checarColisaoObstaculo() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaObstaculo = null;
 		for (int i = 0; i < espaco.getObstaculosNaSessao(); i++) {
@@ -142,7 +145,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		return false;
 	}
 	
-	public boolean checarColisaoAlien() {
+	private boolean checarColisaoAlien() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaAlien = null;
 		for (int i = 0; i < espaco.getAliensNaSessao(); i++) {
@@ -154,7 +157,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		return false;
 	}
 	
-	public boolean checarColisaoLaser() {
+	private boolean checarColisaoLaser() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaLaser = null;
 		for (int i = 0; i < lasers.size(); i++) {
@@ -166,10 +169,27 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		return false;
 	}
 	
+	private int checarColisaoBanana() {
+		Rectangle formaMacaco = macaco.getBounds();
+		Rectangle formaBanana = null;
+		for (int i = 0; i < espaco.getBananasNaSessao(); i++) {
+			formaBanana = espaco.getBananas().get(i).getBounds();
+			if (formaMacaco.intersects(formaBanana)) {
+				return i;
+			}
+		}
+		return -1;
+	}
 	
-	public void checarColisoes() { 
-		if(checarColisaoObstaculos() || checarColisaoAlien() || checarColisaoLaser()){
+	private void checarColisoes() { 
+		if(checarColisaoObstaculo() || checarColisaoAlien() || checarColisaoLaser()){
 			jogoState = 'O';
+		}
+		int b = checarColisaoBanana();
+		if (b != -1) {
+			ArrayList<Banana> bananas = espaco.getBananas();
+			bananas.get(b).isVisible = false;
+			espaco.setBananas(bananas);
 		}
 	}
 	

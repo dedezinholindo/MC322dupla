@@ -20,7 +20,9 @@ public class Obstaculo extends PecaRegular{
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.MAGENTA);
-		g.fillRect(x, y, width, height);
+		if(isVisible) {
+			g.setColor(Color.MAGENTA);
+			g.fillRect(x, y, width, height);
+		}
 	}
 }

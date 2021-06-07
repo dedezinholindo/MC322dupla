@@ -35,8 +35,9 @@ public class Macaco extends Componente {
 	}
 	
 	public void render (Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(x, y, width, height);
-		
+		if (isVisible) {
+			g.setColor(Color.BLACK);
+			g.fillRect(x, y, width, height);
+		}
 	}
 }

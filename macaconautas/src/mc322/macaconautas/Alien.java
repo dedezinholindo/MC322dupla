@@ -9,13 +9,13 @@ public class Alien extends PecaRegular{
 	
 	public final static int ALIEN_WIDTH = 10;
 	public final static int ALIEN_HEIGHT = 10;
+	public final static int DISTANCIA_PARA_TIRO = 50;
 	private int deslocamento; //a cada X de deslocamento ele vai disparar
 	private boolean shoot;
 	
 	public Alien(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		speed = 1;
-		isVisible = true; 
 		shoot = true; //comecar atirando a a partir do momento que chegar na tela
 		deslocamento = 0;
 		
@@ -25,7 +25,7 @@ public class Alien extends PecaRegular{
 		x -= speed;
 		if (x <= AppMacaconautas.WIDTH * AppMacaconautas.SCALE) {
 			deslocamento += speed;
-			if (deslocamento == 50) {
+			if (deslocamento == DISTANCIA_PARA_TIRO) {
 				shoot = true;
 				deslocamento = 0;
 			}
@@ -40,8 +40,10 @@ public class Alien extends PecaRegular{
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(x, y, width, height);
+		if (isVisible) {
+			g.setColor(Color.GREEN);
+			g.fillRect(x, y, width, height);
+		}
 	}
 	
 }

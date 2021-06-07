@@ -26,8 +26,10 @@ public class Laser extends PecaRegular {
 	
 
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(x + Alien.ALIEN_WIDTH, y + (Alien.ALIEN_HEIGHT / 2), width, height);
+		if(isVisible) {
+			g.setColor(Color.blue);
+			g.fillRect(x + Alien.ALIEN_WIDTH, y + (Alien.ALIEN_HEIGHT / 2), width, height);
+		}
 	}
 
 }

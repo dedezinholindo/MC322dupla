@@ -21,8 +21,5 @@ public class Componente extends Rectangle implements IComponente{
 	public void render() {
 				
 	}
-	
-	
-	
 
 }
