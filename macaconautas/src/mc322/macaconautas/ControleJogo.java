@@ -15,11 +15,11 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-public class ControleJogo extends Canvas implements Runnable, KeyListener {
+public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo {
 	
 	public final static int MACACO_WIDTH = 32;
 	public final static int MACACO_HEIGHT = 32;
-	private char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
+	public char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
 	private boolean isRunning;
 	private Thread thread;
 	private JFrame f;
@@ -43,7 +43,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		//menu
 	}
 	
-	public void initFrame() {
+	private void initFrame() {
 		f = new JFrame("MACACONAUTAS"); //titulo do jogo ou setTitle()
 		f.add(this); //adicionar o que criamos para ficar visível
 		f.setResizable(false); //nao pode redimensionar 
@@ -63,7 +63,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 		ControleJogo.lasers = lasers;
 	}
 
-	public void tick() {
+	private void tick() {
 		//Update the AppMacaconautas
 		switch(jogoState) {
 			case 'N':
@@ -80,15 +80,17 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 				break;
 				
 			case 'O':
-				//stop();
+				// Mostrar resultados por alguns segundos e voltar pro menu
+				isRunning = false;
 				break;
 		}
 	}
 	
-	public synchronized void start() { //synchronized para evitar que a thread use/mude o mesmo recurso ao mesmo tempo
+	public synchronized void start() throws InterruptedException { //synchronized para evitar que a thread use/mude o mesmo recurso ao mesmo tempo
 		this.isRunning = true;
 		thread = new Thread(this);
 		thread.start();
+		thread.join();
 	}
 	
 	public synchronized void stop() {
@@ -101,7 +103,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener {
 	}
 	
 	//TIRAR DAQUI??
-	public void render() {
+	private void render() {
 		//renderizar the AppMacaconautas
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) { //significa que ainda nao existe nenhum buffer strategy

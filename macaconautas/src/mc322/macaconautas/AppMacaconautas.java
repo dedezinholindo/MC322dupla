@@ -12,7 +12,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
-
+//MONTAR INTERFACE ENTRE MENU LOJA
 
 //tentar criar frame aqui e quando passar pros outros estados do jogo ir mudando com base nesse frame de origem
 public class AppMacaconautas extends Canvas {
@@ -20,7 +20,7 @@ public class AppMacaconautas extends Canvas {
 	public final static int WIDTH = 160;
 	public final static int HEIGHT = 120;
 	public final static int SCALE = 4;
-	private static char appState; //"L" para Loja, "M" para menu inicial e "J" para jogo
+	private static char appState; //"L" para Loja, "M" para menu inicial, "J" para jogo e F de Fim
 	
 	
 	public AppMacaconautas() {
@@ -29,7 +29,7 @@ public class AppMacaconautas extends Canvas {
 		appState = 'M';
 	}
 	
-	public void initFrame() {
+	private void initFrame() {
 		f = new JFrame("MACACONAUTAS"); //titulo do jogo ou setTitle()
 		f.add(this); //adicionar o que criamos para ficar visível
 		f.setResizable(false); //nao pode redimensionar 
@@ -43,14 +43,26 @@ public class AppMacaconautas extends Canvas {
 		AppMacaconautas app = new AppMacaconautas();
 		appState = 'J'; //TESTE PARA INICIAR O JOGO
 		Thread.currentThread().sleep(10); //necessário para sumir a outra janela - instantaneo ele trava
-		if (appState == 'M') {
-			//abrir menu
-		} else if (appState == 'L') {
-			//abrir loja
-		} else {
-			ControleJogo jogo = new ControleJogo();
-			jogo.start();
+		while(appState != 'F') {
+			if (appState == 'M') {
+				//abrir menu
+				//MenuInicial menu = new MenuInicial();
+				//menu.start();
+				
+				Thread.currentThread().sleep(3000);
+				appState = 'F'; //simular saida do jogo
+			} else if (appState == 'L') {
+				//abrir loja
+			} else if (appState == 'J'){
+				ControleJogo jogo = new ControleJogo();
+				jogo.start();
+				//System.exit(0);
+				appState = 'M'; //do jogo so pode voltar para o menu
+				//valor = COntoleJogo.stop();
+			}
 		}
+		//salvar jogo
+		//System.exit(0);
 	}
 
 	
