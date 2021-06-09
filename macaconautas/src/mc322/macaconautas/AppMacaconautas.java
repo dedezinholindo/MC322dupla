@@ -62,6 +62,19 @@ public class AppMacaconautas extends Canvas {
 		}		
 	}
 	
+	public static void abrirLoja() throws InterruptedException {
+		if(!lojaCriada) {
+			loja = new Loja();
+			loja.start();
+			lojaCriada = true;
+		}
+		Thread.currentThread().sleep(50); //operacoes imediatas ocasionam erros inesperaveis
+		if (loja.getLojaState() == 'M') {
+			appState = 'M';
+			lojaCriada = false;
+		}
+	}
+	
 	public static void abrirJogo() throws InterruptedException {
 		if(!jogoCriado) {
 			jogo = new ControleJogo();
@@ -84,11 +97,13 @@ public class AppMacaconautas extends Canvas {
 				abrirMenu();
 				Thread.currentThread().sleep(3000);
 				System.out.println("FUNCIONOOOOOOOOOOOOOOU");
-				appState = 'F'; //simular saida do jogo
+				appState = 'L'; //TESTE- simular ida a loja
 				break;
 				
 			case 'L':
-				//abrir loja
+				abrirLoja();
+				Thread.currentThread().sleep(3000);
+				appState = 'F'; //simular saida da loja (TESTE - no jogo só sai pelo menu)
 				break;
 				
 			case 'J':

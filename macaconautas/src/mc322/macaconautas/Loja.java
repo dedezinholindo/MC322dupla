@@ -62,7 +62,7 @@ public class Loja extends Canvas implements Runnable, KeyListener, IModo {
 	
 	
 	private synchronized void stop() {
-		f.setVisible(false);
+		f.dispose();
 		this.isRunning = false;
 	}
 	

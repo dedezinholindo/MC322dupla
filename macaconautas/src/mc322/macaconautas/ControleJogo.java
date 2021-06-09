@@ -102,7 +102,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	}*/
 
 	public synchronized void stop() {
-		f.setVisible(false);
+		f.dispose();
 		this.isRunning = false;
 	}
 

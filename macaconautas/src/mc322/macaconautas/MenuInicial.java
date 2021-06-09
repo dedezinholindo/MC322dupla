@@ -49,17 +49,17 @@ public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo 
 
 		case 'L':
 			//ir loja
-			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O STATE VIRA L"
+			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O LOJASTATE VIRA L"
 			stop();
 			break;
 
 		case 'J':
 			//ir jogo
-			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O STATE VIRA J"
+			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O LOJASTATE VIRA J"
+			stop();
 			break;
 			
 		case 'F':
-			//sair e salvar
 			stop();
 			break;
 		}
@@ -73,7 +73,7 @@ public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo 
 	
 	
 	private synchronized void stop() {
-		f.setVisible(false);
+		f.dispose();
 		this.isRunning = false;
 	}
 	
