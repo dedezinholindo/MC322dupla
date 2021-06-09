@@ -16,18 +16,19 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo {
-	
+
 	public final static int MACACO_WIDTH = 32;
 	public final static int MACACO_HEIGHT = 32;
-	public char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
+	private char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
 	private boolean isRunning;
+	//private boolean estaSuspensa;
 	private Thread thread;
 	private JFrame f;
 	private Macaco macaco;
 	private Espaco espaco;
 	private static ArrayList <Laser> lasers; 
-	
-	public ControleJogo() {
+
+	public ControleJogo() throws InterruptedException {
 		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
 		initFrame();
 		this.addKeyListener(this);
@@ -35,14 +36,10 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		espaco = new Espaco();
 		lasers = new ArrayList<Laser>();
 		jogoState = 'N';
+		isRunning = true;
+		//estaSuspensa = false;
 	}
-	
-	private void apagarVisibilidadeJanelas() {
-		AppMacaconautas.f.setVisible(false); //fica aberto o tempo todo? Ou será excluido? ver sobrecarga 
-		//loja
-		//menu
-	}
-	
+
 	private void initFrame() {
 		f = new JFrame("MACACONAUTAS"); //titulo do jogo ou setTitle()
 		f.add(this); //adicionar o que criamos para ficar visível
@@ -51,10 +48,12 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		f.setLocationRelativeTo(null); //centro (tem que estar depois do pack)
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fechar quando clicar no x e parar de vez
 		f.setVisible(true); //deixar ele visivel
-		apagarVisibilidadeJanelas();
 	}
-	
-	
+
+	public char getJogoState() {
+		return jogoState;
+	}
+
 	public static ArrayList<Laser> getLasers() {
 		return lasers;
 	}
@@ -66,42 +65,47 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	private void tick() {
 		//Update the AppMacaconautas
 		switch(jogoState) {
-			case 'N':
-				macaco.tick();
-				espaco.tick();
-				checarColisoes();
-				for (int i = 0; i < lasers.size(); i++) {
-					lasers.get(i).tick();
-				}
-				break;
-				
-			case 'P':
-				//pause
-				break;
-				
-			case 'O':
-				// Mostrar resultados por alguns segundos e voltar pro menu
-				isRunning = false;
-				break;
+		case 'N':
+			macaco.tick();
+			espaco.tick();
+			checarColisoes();
+			for (int i = 0; i < lasers.size(); i++) {
+				lasers.get(i).tick();
+			}
+			break;
+
+		case 'P':
+			//pause(); //tecla do teclado
+			break;
+
+		case 'O':
+			// Mostrar resultados por alguns segundos e voltar pro menu
+			try {
+				Thread.currentThread().sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			stop();
+			break;
 		}
 	}
-	
+
 	public synchronized void start() throws InterruptedException { //synchronized para evitar que a thread use/mude o mesmo recurso ao mesmo tempo
 		this.isRunning = true;
 		thread = new Thread(this);
 		thread.start();
-		thread.join();
 	}
-	
+
+	/*private synchronized void pause() {
+		estaSuspensa = true;
+	}*/
+
 	public synchronized void stop() {
-		isRunning = false;
-		try {
-			thread.join();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		f.setVisible(false);
+		this.isRunning = false;
 	}
-	
+
 	//TIRAR DAQUI??
 	private void render() {
 		//renderizar the AppMacaconautas
@@ -114,19 +118,19 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		Graphics g = bs.getDrawGraphics(); //podemos gerar imagem, retangulo, string
 		g.setColor(Color.PINK);
 		g.fillRect(0,0, AppMacaconautas.WIDTH*AppMacaconautas.SCALE,AppMacaconautas.HEIGHT*AppMacaconautas.SCALE); //aparece um retangulo na tela (x,y,largura,altura)
-		
+
 		macaco.render(g);
 		espaco.render(g);
 		for (int i = 0; i < lasers.size(); i++) {
 			lasers.get(i).render(g);
 		}
-		
+		//tirar daqui para renderizar o menu
 		if (jogoState == 'O') {
 			//TELA GAME OVER
 			Graphics2D g2 = (Graphics2D) g;
 			g2.setColor(new Color(0,0,0,100)); //transparencia
 			g2.fillRect(0, 0, AppMacaconautas.WIDTH * AppMacaconautas.SCALE, AppMacaconautas.HEIGHT * AppMacaconautas.SCALE);
-			
+
 			//FRASE GAME OVER
 			g.setFont(new Font("arial", Font.BOLD, 30));
 			g.setColor(Color.WHITE);
@@ -134,7 +138,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		}
 		bs.show(); //mostra o grafico
 	}
-	
+
 	private boolean checarColisaoObstaculo() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaObstaculo = null;
@@ -146,7 +150,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		}
 		return false;
 	}
-	
+
 	private boolean checarColisaoAlien() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaAlien = null;
@@ -158,7 +162,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		}
 		return false;
 	}
-	
+
 	private boolean checarColisaoLaser() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaLaser = null;
@@ -170,7 +174,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		}
 		return false;
 	}
-	
+
 	private int checarColisaoBanana() {
 		Rectangle formaMacaco = macaco.getBounds();
 		Rectangle formaBanana = null;
@@ -182,7 +186,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		}
 		return -1;
 	}
-	
+
 	private void checarColisoes() { 
 		if(checarColisaoObstaculo() || checarColisaoAlien() || checarColisaoLaser()){
 			jogoState = 'O';
@@ -195,31 +199,32 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 			espaco.setBananasNaSessao(espaco.getBananasNaSessao() - 1);
 		}
 	}
-	
-	
+
+
 	public void run() {
+
 		while (this.isRunning) {
-				tick();
-				render();
-				try {
-					Thread.sleep(1000/60); //60 FPS
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} 
-			}
-		stop();
+			tick();
+			render();
+			try {
+				Thread.sleep(1000/60); //60 FPS
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} 
+		} 
+
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			macaco.setUp(true);
-}
+		}
 	}
 
 	@Override
@@ -228,6 +233,6 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 			macaco.setUp(false);
 		} 
 	}
-	
+
 
 }

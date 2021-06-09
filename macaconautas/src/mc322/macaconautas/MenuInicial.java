@@ -14,18 +14,20 @@ import javax.swing.JFrame;
 
 public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo {
 	private JFrame f;
+	private char menuState; //N normal, L ir loja, J ir jogo, F para sair
+	private boolean isRunning;
+	private Thread thread;
 	
 	public MenuInicial() {
 		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
 		initFrame();
 		this.addKeyListener(this);
+		menuState = 'N';
+		isRunning = true;
 	}
 	
-	private void apagarVisibilidadeJanelas() {
-		AppMacaconautas.f.setVisible(false);//fica aberto o tempo todo? Ou será excluido? ver sobrecarga 
-		//apagar o do JOGO
-		//loja
-		//menu
+	public char getMenuState() {
+		return menuState;
 	}
 	
 	private void initFrame() {
@@ -36,20 +38,45 @@ public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo 
 		f.setLocationRelativeTo(null); //centro (tem que estar depois do pack)
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fechar quando clicar no x e parar de vez
 		f.setVisible(true); //deixar ele visivel
-		apagarVisibilidadeJanelas();
-	}
-	
-	public synchronized void start() throws InterruptedException{
-		render();
-	}
-	
-	private synchronized void stop() {
-		
 	}
 	
 	private void tick() {
-		
+		//Update the AppMacaconautas
+		switch(menuState) {
+		case 'N':
+			//normal
+			break;
+
+		case 'L':
+			//ir loja
+			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O STATE VIRA L"
+			stop();
+			break;
+
+		case 'J':
+			//ir jogo
+			//CRIAR NO EVENTO "SE ELE CLICAR NA LOJA, O STATE VIRA J"
+			break;
+			
+		case 'F':
+			//sair e salvar
+			stop();
+			break;
+		}
 	}
+
+	public synchronized void start() throws InterruptedException { //synchronized para evitar que a thread use/mude o mesmo recurso ao mesmo tempo
+		this.isRunning = true;
+		thread = new Thread(this);
+		thread.start();
+	}
+	
+	
+	private synchronized void stop() {
+		f.setVisible(false);
+		this.isRunning = false;
+	}
+	
 	
 	private void render() {
 		//renderizar the AppMacaconautas
@@ -85,7 +112,15 @@ public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo 
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		while (this.isRunning) {
+			tick();
+			render();
+			try {
+				Thread.sleep(1000/60); //60 FPS
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} 
+		} 
 		
 	}
 }
