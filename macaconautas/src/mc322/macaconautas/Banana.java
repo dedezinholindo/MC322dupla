@@ -3,25 +3,28 @@ package mc322.macaconautas;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Banana extends PecaRegular{
+public class Banana extends PecaRegular {
 
-	public final static int BANANA_WIDTH = 4;
-	public final static int BANANA_HEIGHT = 18;
-	
-	public Banana(int x, int y, int width, int height) {
-		super(x, y, width, height);
-		speed = 1;
+	private final static int BANANA_WIDTH = 28;
+	private final static int BANANA_HEIGHT = 28;
+
+	/**
+	 * Inicializa uma banana.
+	 * @param x coordenada x da banana.
+	 * @param y coordenada y da banana.
+	 */
+	public Banana(int x, int y) {
+		super(x, y, BANANA_WIDTH, BANANA_HEIGHT);
 	}
-	
-	public void tick() {
-		x -= speed;
-	}
-	
+
+	/**
+	 * Renderiza a banana na tela.
+	 * @param g
+	 */
 	public void render(Graphics g) {
-		if (isVisible) {
+		if (this.isVisible) {
 			g.setColor(Color.YELLOW);
-			g.fillRect(x, y, width, height);
+			g.fillRect(this.x, this.y, this.width, this.height);
 		}
 	}
-
 }

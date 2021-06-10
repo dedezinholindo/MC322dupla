@@ -1,7 +1,14 @@
 package mc322.macaconautas;
 
 public interface IComponente {
-	void tick(); //atualiza o jogo
-	void render(); //renderiza o jogo
-	
+
+	/**
+	 * Atualiza o estado do componente em um frame.
+	 */
+	public void tick();
+
+	/**
+	 * Renderiza o componente na tela.
+	 */
+	public void render();
 }

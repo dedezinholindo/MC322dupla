@@ -17,8 +17,6 @@ import javax.swing.JFrame;
 
 public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo {
 
-	public final static int MACACO_WIDTH = 32;
-	public final static int MACACO_HEIGHT = 32;
 	private char jogoState; //N para normal, P para pausado (uso do pause) e O para Game Over
 	private boolean isRunning;
 	//private boolean estaSuspensa;
@@ -32,7 +30,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
 		initFrame();
 		this.addKeyListener(this);
-		macaco = new Macaco(15, 0, MACACO_WIDTH, MACACO_HEIGHT);
+		macaco = new Macaco(15, 0);
 		espaco = new Espaco();
 		lasers = new ArrayList<Laser>();
 		jogoState = 'N';
@@ -188,9 +186,9 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	}
 
 	private void checarColisoes() { 
-		if(checarColisaoObstaculo() || checarColisaoAlien() || checarColisaoLaser()){
-			jogoState = 'O';
-		}
+//		if(checarColisaoObstaculo() || checarColisaoAlien() || checarColisaoLaser()){
+//			jogoState = 'O';
+//		}
 		int b = checarColisaoBanana();
 		if (b != -1) {
 			ArrayList<Banana> bananas = espaco.getBananas();
@@ -223,14 +221,14 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			macaco.setUp(true);
+			macaco.setIsGoingUp(true);
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			macaco.setUp(false);
+			macaco.setIsGoingUp(false);
 		} 
 	}
 

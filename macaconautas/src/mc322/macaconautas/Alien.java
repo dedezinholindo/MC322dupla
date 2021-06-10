@@ -5,45 +5,66 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 //lembrar de apagar ele quando ele sair da tela
-public class Alien extends PecaRegular{
-	
-	public final static int ALIEN_WIDTH = 10;
-	public final static int ALIEN_HEIGHT = 10;
-	public final static int DISTANCIA_PARA_TIRO = 50;
-	private int deslocamento; //a cada X de deslocamento ele vai disparar
-	private boolean shoot;
-	
-	public Alien(int x, int y, int width, int height) {
-		super(x, y, width, height);
-		speed = 1;
-		shoot = true; //comecar atirando a a partir do momento que chegar na tela
-		deslocamento = 0;
-		
+public class Alien extends PecaRegular {
+
+	private final static int ALIEN_WIDTH = 28;
+	private final static int ALIEN_HEIGHT = 28;
+
+	private final static int MAX_DISTANCE_WITHOUT_SHOOTING = 120; // distância máxima que o alien pode percorrer sem disparar um laser.
+
+	private int distanceWithoutShooting; // distância percorrida pelo alien sem disparar um laser.
+
+	/**
+	 * Inicializa um alien.
+	 * @param x coordenada x do alien.
+	 * @param y coordenada y do alien.
+	 */
+	public Alien(int x, int y) {
+		super(x, y, ALIEN_WIDTH, ALIEN_HEIGHT);
+		this.distanceWithoutShooting = MAX_DISTANCE_WITHOUT_SHOOTING; // atira a partir do momento que chegar na tela
 	}
 
+	/**
+	 * Retorna a largura constante estática do alien.
+	 * @return largura do alien.
+	 */
+	public static int getStaticWidth() {
+		return ALIEN_WIDTH;
+	}
+
+	/**
+	 * Retorna a altura constante estática do alien.
+	 * @return altura do alien.
+	 */
+	public static int getStaticHeight() {
+		return ALIEN_HEIGHT;
+	}
+
+	/**
+	 * Atualiza o estado do alien em um frame.
+	 */
 	public void tick() {
-		x -= speed;
-		if (x <= AppMacaconautas.WIDTH * AppMacaconautas.SCALE) {
-			deslocamento += speed;
-			if (deslocamento == DISTANCIA_PARA_TIRO) {
-				shoot = true;
-				deslocamento = 0;
-			}
-			if (shoot) {
-				Laser laser = new Laser((int)this.getX(),(int) this.getY());
+		super.tick();
+		if (this.x <= AppMacaconautas.WIDTH * AppMacaconautas.SCALE) {
+			if (this.distanceWithoutShooting == MAX_DISTANCE_WITHOUT_SHOOTING) { // atira um laser.
+				Laser laser = new Laser(this.x - this.width - this.speed, this.y + (this.height / 2));
 				ArrayList <Laser> l = ControleJogo.getLasers(); 
 				l.add(laser);
 				ControleJogo.setLasers(l);
+				this.distanceWithoutShooting = 0;
 			}
-			shoot = false;
+			this.distanceWithoutShooting += this.speed;
 		}
 	}
 
+	/**
+	 * Renderiza o alien na tela.
+	 * @param g
+	 */
 	public void render(Graphics g) {
-		if (isVisible) {
+		if (this.isVisible) {
 			g.setColor(Color.GREEN);
-			g.fillRect(x, y, width, height);
+			g.fillRect(this.x, this.y, this.width, this.height);
 		}
 	}
-	
 }

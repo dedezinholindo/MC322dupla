@@ -18,9 +18,9 @@ public class Espaco {
 
 	//ver se tem como diminuir ou evitar repeticao
 	public Espaco() {
-		obstaculosNaSessao = 30;
-		aliensNaSessao = 20;
-		bananasNaSessao = 10;
+		obstaculosNaSessao = 15;
+		aliensNaSessao = 15;
+		bananasNaSessao = 20;
 		iniciarArrayItens();
 	}
 	
@@ -30,21 +30,21 @@ public class Espaco {
 			Random aleatorioDois = new Random();
 			int valory = aleatorioDois.nextInt((AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - 16) + 1);
 			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
-			obstaculos.add(new Obstaculo(valorx, valory, Obstaculo.OBSTACULO_WIDTH,Obstaculo.OBSTACULO_HEIGHT));
+			obstaculos.add(new Obstaculo(valorx, valory));
 		}
 		aliens = new ArrayList<Alien>();
 		for (int i = 0; i < aliensNaSessao; i ++) {
 			Random aleatorioDois = new Random();
 			int valory = aleatorioDois.nextInt((AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - 16) + 1);
 			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
-			aliens.add(new Alien(valorx, valory, Alien.ALIEN_WIDTH,Alien.ALIEN_HEIGHT));
+			aliens.add(new Alien(valorx, valory));
 		}
 		bananas = new ArrayList<Banana>();
 		for (int i = 0; i < bananasNaSessao; i ++) {
 			Random aleatorioDois = new Random();
 			int valory = aleatorioDois.nextInt((AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - 16) + 1);
 			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
-			bananas.add(new Banana(valorx, valory, Banana.BANANA_WIDTH, Banana.BANANA_HEIGHT));
+			bananas.add(new Banana(valorx, valory));
 		}
 	}
 

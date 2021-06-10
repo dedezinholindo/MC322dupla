@@ -4,32 +4,44 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-public class Laser extends PecaRegular {
+public class Laser extends Componente {
 
-	public final static int LASER_WIDTH = 8;
-	public final static int LASER_HEIGHT = 5;
-	
+	private final static int LASER_WIDTH = 32;
+	private final static int LASER_HEIGHT = 8;
+
+	private final static int LASER_SPEED = 2;
+
+	/**
+	 * Inicializa um laser.
+	 * @param x coordenada x do laser.
+	 * @param y coordenada y do laser.
+	 */
 	public Laser(int x, int y) {
 		super(x, y, LASER_WIDTH, LASER_HEIGHT);
-		speed = 2;
-	} 
-	
+		this.speed = LASER_SPEED;
+	}
+
+	/**
+	 * Atualiza o estado do laser em um frame.
+	 */
 	public void tick() {
-		x -= speed;
-		if (x < 0) { //sumir quando sir da tela
+		this.x -= this.speed;
+		if (this.x < 0) { //sumir quando sir da tela
 			ArrayList <Laser> l = ControleJogo.getLasers();
 			l.remove(this);
 			ControleJogo.setLasers(l);
 			return; // sempre retornar quando elimina o proprio objeto 
 		}
 	}
-	
 
+	/**
+	 * Renderiza o laser na tela.
+	 * @param g
+	 */
 	public void render(Graphics g) {
-		if(isVisible) {
-			g.setColor(Color.blue);
-			g.fillRect(x + Alien.ALIEN_WIDTH, y + (Alien.ALIEN_HEIGHT / 2), width, height);
+		if(this.isVisible) {
+			g.setColor(Color.red);
+			g.fillRect(this.x, this.y, this.width, this.height);
 		}
 	}
-
 }
