@@ -1,11 +1,15 @@
 package mc322.macaconautas;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Componente extends Rectangle implements IComponente{
 
 	protected int speed;
 	protected boolean isVisible;
+	protected int quantidadeSprites;
+	protected BufferedImage sprites[];
+	protected int frameAnimacao;
 
 	/**
 	 * Inicializa um componente.
@@ -16,6 +20,9 @@ public class Componente extends Rectangle implements IComponente{
 	 */
 	public Componente(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		this.quantidadeSprites = 0;
+		this.sprites = null;
+		this.frameAnimacao = 0;
 		this.isVisible = true;
 	}
 

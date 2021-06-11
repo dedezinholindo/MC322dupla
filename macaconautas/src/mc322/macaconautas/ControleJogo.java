@@ -27,7 +27,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	private static ArrayList <Laser> lasers; 
 
 	public ControleJogo() throws InterruptedException {
-		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH*AppMacaconautas.SCALE, AppMacaconautas.HEIGHT*AppMacaconautas.SCALE)); //setar size do JFrame
+		this.setPreferredSize(new Dimension(AppMacaconautas.WIDTH * AppMacaconautas.SCALE, AppMacaconautas.HEIGHT * AppMacaconautas.SCALE)); //setar size do JFrame
 		initFrame();
 		this.addKeyListener(this);
 		macaco = new Macaco(15, 0);

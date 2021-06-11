@@ -3,11 +3,21 @@ package mc322.macaconautas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle; //vai ter toda a colisão e todos os métodos necessários
+import java.awt.image.BufferedImage;
 
 public class Macaco extends Componente {
 
 	private final static int MACACO_WIDTH = 32;
 	private final static int MACACO_HEIGHT = 32;
+
+	private final static String MACACO_SPRITE_SHEET_PATH = "/spritesheet.png";
+	private final static int MACACO_SPRITE_X = 0;
+	private final static int MACACO_SPRITE_Y = 0;
+	private final static int MACACO_SPRITE_WIDTH = 32;
+	private final static int MACACO_SPRITE_HEIGHT = 32;
+	private final static int MACACO_QUANTIDADE_SPRITES = 5;
+
+	private final static int MACACO_MAX_FRAMES_ANIMACAO = 3;
 
 	private final static int GOING_UP_SPEED = 5;
 	private final static int GOING_DOWN_SPEED = 3;
@@ -20,8 +30,14 @@ public class Macaco extends Componente {
 	 * @param x coordenada x do macaco.
 	 * @param y coordenada y do macaco.
 	 */
-	public Macaco (int x, int y) {
-		super(x, y, MACACO_WIDTH, MACACO_HEIGHT); //os dois ultimos sao largura e altura
+	public Macaco(int x, int y) {
+		super(x, y, MACACO_WIDTH, MACACO_HEIGHT);
+		this.quantidadeSprites = MACACO_QUANTIDADE_SPRITES;
+		this.sprites = new BufferedImage[this.quantidadeSprites];
+		SpriteSheet spriteSheet = new SpriteSheet(MACACO_SPRITE_SHEET_PATH);
+		for (int i = 0; i < this.quantidadeSprites; i++) {
+			this.sprites[i] = spriteSheet.getSprite(MACACO_SPRITE_X, MACACO_SPRITE_Y, MACACO_SPRITE_WIDTH, MACACO_HEIGHT);
+		}
 	}
 
 	/**
@@ -56,8 +72,22 @@ public class Macaco extends Componente {
 	 */
 	public void render (Graphics g) {
 		if (this.isVisible) {
-			g.setColor(Color.black);
-			g.fillRect(x, y, width, height);
+			BufferedImage sprite;
+			if (this.isGoingUp) {
+				sprite = this.sprites[1];
+			} else if (this.isWalking) {
+				sprite = this.sprites[2 + this.frameAnimacao];
+				this.frameAnimacao++;
+				if (this.frameAnimacao == MACACO_MAX_FRAMES_ANIMACAO) {
+					this.frameAnimacao = 0;
+				}
+			} else {
+				sprite = this.sprites[0];
+			}
+			g.drawImage(sprite, this.x, this.y, null);
+
+//			g.setColor(Color.black);
+//			g.fillRect(this.x, this.y, this.width, this.height);
 		}
 	}
 }

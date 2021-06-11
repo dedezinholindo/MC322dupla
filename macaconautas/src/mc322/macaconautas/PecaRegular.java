@@ -1,5 +1,7 @@
 package mc322.macaconautas;
 
+import java.awt.image.BufferedImage;
+
 public class PecaRegular extends Componente {
 
 	private final static int PECA_REGULAR_SPEED = 1; // todas peças regulares têm a mesma velocidade

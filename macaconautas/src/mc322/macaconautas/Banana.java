@@ -2,6 +2,7 @@ package mc322.macaconautas;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class Banana extends PecaRegular {
 
