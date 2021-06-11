@@ -13,6 +13,7 @@ public class Macaco extends Componente {
 	private final static int GOING_DOWN_SPEED = 3;
 
 	private boolean isGoingUp; // indica se o macaco está indo para cima.
+	private boolean isWalking; // indica se o macaco está andando no chão.
 
 	/**
 	 * Inicializa um macaco.
@@ -35,6 +36,7 @@ public class Macaco extends Componente {
 	 * Atualiza o estado do macaco em um frame.
 	 */
 	public void tick() {
+		this.isWalking = false;
 		if (isGoingUp) {
 			this.y -= GOING_UP_SPEED;
 		} else { 
@@ -42,8 +44,9 @@ public class Macaco extends Componente {
 		}
 		if (this.y + this.height > AppMacaconautas.HEIGHT * AppMacaconautas.SCALE) {
 			this.y = AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - this.height;
-		} else if (this.y < 0) {
+		} else if (this.y <= 0) {
 			this.y = 0;
+			this.isWalking = true;
 		}
 	}
 
