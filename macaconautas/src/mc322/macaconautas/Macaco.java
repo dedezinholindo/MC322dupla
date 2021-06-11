@@ -10,7 +10,7 @@ public class Macaco extends Componente {
 	private final static int MACACO_WIDTH = 32;
 	private final static int MACACO_HEIGHT = 32;
 
-	private final static String MACACO_SPRITE_SHEET_PATH = "/spritesheet.png";
+	private final static String MACACO_SPRITE_SHEET_PATH = "res/spritesheet.png";
 	private final static int MACACO_SPRITE_X = 0;
 	private final static int MACACO_SPRITE_Y = 0;
 	private final static int MACACO_SPRITE_WIDTH = 32;
