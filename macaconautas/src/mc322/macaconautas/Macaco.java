@@ -7,17 +7,18 @@ import java.awt.image.BufferedImage;
 
 public class Macaco extends Componente {
 
-	private final static int MACACO_WIDTH = 32;
-	private final static int MACACO_HEIGHT = 32;
+	private final static int WIDTH = 32;
+	private final static int HEIGHT = 32;
 
-	private final static String MACACO_SPRITE_SHEET_PATH = "res/spritesheet.png";
-	private final static int MACACO_SPRITE_X = 0;
-	private final static int MACACO_SPRITE_Y = 0;
-	private final static int MACACO_SPRITE_WIDTH = 32;
-	private final static int MACACO_SPRITE_HEIGHT = 32;
-	private final static int MACACO_QUANTIDADE_SPRITES = 5;
+	private final static String SPRITE_SHEET_PATH = "res/spritesheet.png";
+	private final static int SPRITE_X = 0;
+	private final static int SPRITE_Y = 0;
+	private final static int SPRITE_WIDTH = 32;
+	private final static int SPRITE_HEIGHT = 32;
+	private final static int QUANTIDADE_SPRITES = 5;
 
-	private final static int MACACO_MAX_FRAMES_ANIMACAO = 3;
+	private final static int PERIODO_ANIMACAO = 15; // quantidade de frames do jogo para cada frame da animação.
+	private final static int MAX_FRAMES_ANIMACAO = 4;
 
 	private final static int GOING_UP_SPEED = 5;
 	private final static int GOING_DOWN_SPEED = 3;
@@ -31,12 +32,12 @@ public class Macaco extends Componente {
 	 * @param y coordenada y do macaco.
 	 */
 	public Macaco(int x, int y) {
-		super(x, y, MACACO_WIDTH, MACACO_HEIGHT);
-		this.quantidadeSprites = MACACO_QUANTIDADE_SPRITES;
+		super(x, y, WIDTH, HEIGHT);
+		this.quantidadeSprites = QUANTIDADE_SPRITES;
 		this.sprites = new BufferedImage[this.quantidadeSprites];
-		SpriteSheet spriteSheet = new SpriteSheet(MACACO_SPRITE_SHEET_PATH);
+		SpriteSheet spriteSheet = new SpriteSheet(SPRITE_SHEET_PATH);
 		for (int i = 0; i < this.quantidadeSprites; i++) {
-			this.sprites[i] = spriteSheet.getSprite(MACACO_SPRITE_X, MACACO_SPRITE_Y, MACACO_SPRITE_WIDTH, MACACO_HEIGHT);
+			this.sprites[i] = spriteSheet.getSprite(SPRITE_X + (i * SPRITE_WIDTH), SPRITE_Y, SPRITE_WIDTH, HEIGHT);
 		}
 	}
 
@@ -53,16 +54,16 @@ public class Macaco extends Componente {
 	 */
 	public void tick() {
 		this.isWalking = false;
-		if (isGoingUp) {
+		if (this.isGoingUp) {
 			this.y -= GOING_UP_SPEED;
 		} else { 
 			this.y += GOING_DOWN_SPEED;
 		}
-		if (this.y + this.height > AppMacaconautas.HEIGHT * AppMacaconautas.SCALE) {
+		if (this.y + this.height > AppMacaconautas.HEIGHT * AppMacaconautas.SCALE) { // está no limite inferior (chão).
 			this.y = AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - this.height;
-		} else if (this.y <= 0) {
-			this.y = 0;
 			this.isWalking = true;
+		} else if (this.y <= 0) { // está no limite superior (teto).
+			this.y = 0;
 		}
 	}
 
@@ -74,15 +75,22 @@ public class Macaco extends Componente {
 		if (this.isVisible) {
 			BufferedImage sprite;
 			if (this.isGoingUp) {
-				sprite = this.sprites[1];
+				sprite = this.sprites[1]; // sprite com mochila a jato ativada.
+				this.frame = 0;
 			} else if (this.isWalking) {
-				sprite = this.sprites[2 + this.frameAnimacao];
-				this.frameAnimacao++;
-				if (this.frameAnimacao == MACACO_MAX_FRAMES_ANIMACAO) {
-					this.frameAnimacao = 0;
+				int frameAnimacao = this.frame / PERIODO_ANIMACAO;
+				if (frameAnimacao % 2 == 1) {
+					sprite = this.sprites[4]; // sprite de estado intermediário na corrida.
+				} else {
+					sprite = this.sprites[2 + (frameAnimacao / 2)]; // sprite de passo direito (2) ou esquerdo (3).
+				}
+				this.frame++;
+				if (this.frame == MAX_FRAMES_ANIMACAO * PERIODO_ANIMACAO) {
+					this.frame = 0;
 				}
 			} else {
 				sprite = this.sprites[0];
+				this.frame = 0; // sprite com mochila a jato desativada.
 			}
 			g.drawImage(sprite, this.x, this.y, null);
 

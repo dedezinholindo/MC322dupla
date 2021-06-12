@@ -9,7 +9,7 @@ public class Componente extends Rectangle implements IComponente{
 	protected boolean isVisible;
 	protected int quantidadeSprites;
 	protected BufferedImage sprites[];
-	protected int frameAnimacao;
+	protected int frame;
 
 	/**
 	 * Inicializa um componente.
@@ -22,7 +22,7 @@ public class Componente extends Rectangle implements IComponente{
 		super(x, y, width, height);
 		this.quantidadeSprites = 0;
 		this.sprites = null;
-		this.frameAnimacao = 0;
+		this.frame = 0;
 		this.isVisible = true;
 	}
 
