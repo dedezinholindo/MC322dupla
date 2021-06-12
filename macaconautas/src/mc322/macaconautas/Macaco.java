@@ -39,6 +39,8 @@ public class Macaco extends Componente {
 		for (int i = 0; i < this.quantidadeSprites; i++) {
 			this.sprites[i] = spriteSheet.getSprite(SPRITE_X + (i * SPRITE_WIDTH), SPRITE_Y, SPRITE_WIDTH, HEIGHT);
 		}
+		this.isGoingUp = false;
+		this.isWalking = false;
 	}
 
 	/**

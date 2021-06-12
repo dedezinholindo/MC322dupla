@@ -229,7 +229,7 @@ public class ControleJogo extends Canvas implements Runnable, KeyListener, IModo
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			macaco.setIsGoingUp(false);
-		} 
+		}
 	}
 
 
