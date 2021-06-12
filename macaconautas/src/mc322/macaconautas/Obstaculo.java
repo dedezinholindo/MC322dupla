@@ -14,7 +14,7 @@ public class Obstaculo extends PecaRegular {
 	/**
 	 * Inicializa um obstáculo.
 	 * @param x coordenada x do obstáculo.
-	 * @param y coordenada y da obstáculo.
+	 * @param y coordenada y do obstáculo.
 	 */
 	public Obstaculo(int x, int y) {
 		super(x, y, OBSTACULO_WIDTH, OBSTACULO_HEIGHT);
