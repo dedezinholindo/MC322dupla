@@ -7,14 +7,14 @@ import java.awt.image.BufferedImage;
 
 public class Macaco extends Componente {
 
-	private final static int WIDTH = 32;
+	private final static int WIDTH = 24;
 	private final static int HEIGHT = 32;
 
 	private final static String SPRITE_SHEET_PATH = "res/spritesheet.png";
 	private final static int SPRITE_X = 0;
 	private final static int SPRITE_Y = 0;
-	private final static int SPRITE_WIDTH = 32;
-	private final static int SPRITE_HEIGHT = 32;
+	private final static int SPRITE_WIDTH = 40;
+	private final static int SPRITE_HEIGHT = 40;
 	private final static int QUANTIDADE_SPRITES = 5;
 
 	private final static int PERIODO_ANIMACAO = 15; // quantidade de frames do jogo para cada frame da animação.
@@ -37,7 +37,7 @@ public class Macaco extends Componente {
 		this.sprites = new BufferedImage[this.quantidadeSprites];
 		SpriteSheet spriteSheet = new SpriteSheet(SPRITE_SHEET_PATH);
 		for (int i = 0; i < this.quantidadeSprites; i++) {
-			this.sprites[i] = spriteSheet.getSprite(SPRITE_X + (i * SPRITE_WIDTH), SPRITE_Y, SPRITE_WIDTH, HEIGHT);
+			this.sprites[i] = spriteSheet.getSprite(SPRITE_X * SPRITE_WIDTH + (i * SPRITE_WIDTH), SPRITE_Y * SPRITE_HEIGHT, SPRITE_WIDTH, SPRITE_HEIGHT);
 		}
 		this.isGoingUp = false;
 		this.isWalking = false;
