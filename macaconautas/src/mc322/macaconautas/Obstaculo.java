@@ -11,7 +11,7 @@ public class Obstaculo extends PecaRegular {
 	public final static int WIDTH = 40;
 	public final static int HEIGHT = 40;
 
-	private final static String SPRITE_SHEET_PATH = "res/spritesheet.png";
+	private final static String SPRITE_SHEET_PATH = "/spritesheet.png";
 	private final static int SPRITE_X = 0;
 	private final static int SPRITE_Y = 1;
 	private final static int SPRITE_WIDTH = 40;

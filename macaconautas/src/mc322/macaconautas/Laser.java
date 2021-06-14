@@ -10,7 +10,7 @@ public class Laser extends Componente {
 	private final static int WIDTH = 36;
 	private final static int HEIGHT = 12;
 
-	private final static String SPRITE_SHEET_PATH = "res/spritesheet.png";
+	private final static String SPRITE_SHEET_PATH = "/spritesheet.png";
 	private final static int SPRITE_X = 0;
 	private final static int SPRITE_Y = 4;
 	private final static int SPRITE_WIDTH = 40;
