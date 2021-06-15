@@ -8,8 +8,8 @@ import java.util.ArrayList;
 //lembrar de apagar ele quando ele sair da tela
 public class Alien extends PecaRegular {
 
-	private final static int ALIEN_WIDTH = 28;
-	private final static int ALIEN_HEIGHT = 28;
+	private final static int WIDTH = 28;
+	private final static int HEIGHT = 28;
 
 	private final static int MAX_DISTANCE_WITHOUT_SHOOTING = 120; // distância máxima que o alien pode percorrer sem disparar um laser.
 
@@ -21,7 +21,7 @@ public class Alien extends PecaRegular {
 	 * @param y coordenada y do alien.
 	 */
 	public Alien(int x, int y) {
-		super(x, y, ALIEN_WIDTH, ALIEN_HEIGHT);
+		super(x, y, WIDTH, HEIGHT);
 		this.distanceWithoutShooting = MAX_DISTANCE_WITHOUT_SHOOTING; // atira a partir do momento que chegar na tela
 	}
 
@@ -30,7 +30,7 @@ public class Alien extends PecaRegular {
 	 * @return largura do alien.
 	 */
 	public static int getStaticWidth() {
-		return ALIEN_WIDTH;
+		return WIDTH;
 	}
 
 	/**
@@ -38,7 +38,7 @@ public class Alien extends PecaRegular {
 	 * @return altura do alien.
 	 */
 	public static int getStaticHeight() {
-		return ALIEN_HEIGHT;
+		return HEIGHT;
 	}
 
 	/**

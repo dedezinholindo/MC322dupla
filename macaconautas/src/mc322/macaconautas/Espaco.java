@@ -11,9 +11,11 @@ public class Espaco {
 	private static ArrayList<Obstaculo> obstaculos; 
 	private static ArrayList<Alien> aliens;
 	private static ArrayList<Banana> bananas;
+	private static ArrayList<WheyProtein> whey;
 	private int obstaculosNaSessao; //variaveis pois irao aumentando com o tempo
 	private int aliensNaSessao;
 	private int bananasNaSessao; 
+	private int wheyNaSessao;
 	private final static int BIGBOSS = 3000;
 
 	//ver se tem como diminuir ou evitar repeticao
@@ -21,6 +23,7 @@ public class Espaco {
 		obstaculosNaSessao = 15;
 		aliensNaSessao = 15;
 		bananasNaSessao = 20;
+		wheyNaSessao = 15;
 		iniciarArrayItens();
 	}
 	
@@ -46,9 +49,28 @@ public class Espaco {
 			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
 			bananas.add(new Banana(valorx, valory));
 		}
+		whey = new ArrayList<WheyProtein>();
+		for (int i = 0; i < wheyNaSessao; i ++) {
+			Random aleatorioDois = new Random();
+			int valory = aleatorioDois.nextInt((AppMacaconautas.HEIGHT * AppMacaconautas.SCALE - 16) + 1);
+			int valorx = aleatorioDois.nextInt((AppMacaconautas.WIDTH * AppMacaconautas.SCALE - 16 + BIGBOSS) + 1) + AppMacaconautas.WIDTH * AppMacaconautas.SCALE; //aleatorio.nextInt((max - min) + 1) + min;
+			whey.add(new WheyProtein(valorx, valory)); 
+		}
 	}
 
 	
+	public static ArrayList<WheyProtein> getWhey() {
+		return whey;
+	}
+
+	public static void setWhey(ArrayList<WheyProtein> whey) {
+		Espaco.whey = whey;
+	}
+
+	public int getWheyNaSessao() {
+		return wheyNaSessao;
+	}
+
 	public int getObstaculosNaSessao() {
 		return obstaculosNaSessao;
 	}
@@ -93,6 +115,9 @@ public class Espaco {
 		this.bananasNaSessao = bananasNaSessao;
 	}
 	
+	public void setWheyNaSessao(int wheyNaSessao) {
+		this.wheyNaSessao = wheyNaSessao;
+	}
 
 	public static void setBananas(ArrayList<Banana> bananas) {
 		Espaco.bananas = bananas;
@@ -108,8 +133,12 @@ public class Espaco {
 		for(int i = 0; i < bananasNaSessao; i++) {
 			bananas.get(i).tick();
 		}
+		for(int i = 0; i < wheyNaSessao; i++) {
+			whey.get(i).tick();
+		}
 	}
 	
+
 	public void tick() {
 		tickPecasRegulares();
 	}
@@ -123,6 +152,9 @@ public class Espaco {
 		}
 		for(int i = 0; i < bananasNaSessao; i++) {
 			bananas.get(i).render(g);
+		}
+		for(int i = 0; i < wheyNaSessao; i++) {
+			whey.get(i).render(g);
 		}
 	}
 	

@@ -87,7 +87,7 @@ public class MenuInicial extends Canvas implements Runnable, KeyListener, IModo 
 		}
 		//fundo
 		Graphics g = bs.getDrawGraphics(); //podemos gerar imagem, retangulo, string
-		g.setColor(Color.BLACK);
+		g.setColor(Color.PINK);
 		g.fillRect(0,0, AppMacaconautas.WIDTH*AppMacaconautas.SCALE,AppMacaconautas.HEIGHT*AppMacaconautas.SCALE); //aparece um retangulo na tela (x,y,largura,altura)
 		bs.show(); //mostra o grafico
 	}

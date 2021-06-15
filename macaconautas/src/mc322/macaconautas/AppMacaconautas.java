@@ -26,6 +26,9 @@ public class AppMacaconautas extends Canvas {
 	private static ControleJogo jogo;
 	private static MenuInicial menu;
 	private static Loja loja;
+	private static int quantidadeBananas;
+	private static int recorde;
+	private static int[] skinsLiberadas;
 
 	public AppMacaconautas() {
 		appState = 'M';
@@ -35,6 +38,9 @@ public class AppMacaconautas extends Canvas {
 		jogo = null;
 		menu = null;
 		loja = null;
+		quantidadeBananas = 0; //ou de acordo com o jogo salvo
+		recorde = 0; //ou o jogo salvo
+		skinsLiberadas = null; //ou jogo salvo
 	}
 	
 	public static void abrirMenu() throws InterruptedException {
@@ -85,6 +91,7 @@ public class AppMacaconautas extends Canvas {
 		if (jogo.getJogoState() == 'O') {
 			appState = 'M';
 			jogoCriado = false;
+			quantidadeBananas += jogo.getBananasColetadas();
 		}
 	}
 
